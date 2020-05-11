@@ -220,8 +220,8 @@
         <echo msg="Updating VCS tag..." />
         <exec command="composer vcs version --check auto --update" checkreturn="true" passthru="true" />
 
-<!--        <echo msg="Pushing to remote VCS..." />
-        <exec command="composer vcs push" checkreturn="true" passthru="true" />        -->
+        <echo msg="Pushing to remote VCS..." />
+        <exec command="composer vcs push" checkreturn="true" passthru="true" />
         
     </target>           
     
