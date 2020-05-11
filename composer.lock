@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd2f92aa20e18e2fc6e2cd0766164970",
+    "content-hash": "70044bb2f82a62d617da029e6738fdc1",
     "packages": [
         {
             "name": "ion/auto-loader",

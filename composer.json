@@ -8,13 +8,13 @@
         "PHP Helper",
         "php-helper"
     ],
-    "homepage": "https://bitbucket.org/justusmeyer/php-helper",
+    "homepage": "https://bitbucket.org/ion-digital-projects/php-helper",
     "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Justus Meyer",
             "role": "developer",
-            "homepage": "https://bitbucket.org/justusmeyer/",
+            "homepage": "https://justusmeyer.com",
             "email": "justus@justusmeyer.com"
         }
     ],
@@ -27,13 +27,7 @@
     },
     "require-dev": {
         "ion/dev": "@dev"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../ion-dev/"
-        }
-    ],  
+    }, 
     "minimum-stability": "dev",
     "autoload": {
       "files": [
