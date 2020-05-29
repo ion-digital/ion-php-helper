@@ -4,9 +4,6 @@
  * See license information at the package root in LICENSE.md
  */
 
-
-
-
 if (!class_exists('\\ion\\PhpHelper')) {
 
     if ((PHP_MAJOR_VERSION === 5 && PHP_MINOR_VERSION < 6) || (PHP_MAJOR_VERSION < 5)) {
@@ -38,10 +35,11 @@ if (!class_exists('\\ion\\PhpHelper')) {
     if (class_exists('\\ion\\Package')) {
 
         \ion\Package::create(
-                'ion', 'php-helper', [ 'source/classes' ], [
-            'build' . DIRECTORY_SEPARATOR . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
-            'build' . DIRECTORY_SEPARATOR . PHP_MAJOR_VERSION,
-            'build' . DIRECTORY_SEPARATOR
+                'ion', 'php-helper', [ 'source/classes/' ],    
+                [                    
+                    'builds/' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
+                    'builds/' . PHP_MAJOR_VERSION
+                    
                 ], __DIR__);
     }
 }

@@ -4,7 +4,6 @@
  */
 namespace ion;
 
-use ion\Types\Arrays\IMap;
 
 interface IPhpHelper
 {
@@ -18,7 +17,7 @@ interface IPhpHelper
      *
      */
     
-    static function isAssociativeArray(array $array);
+    static function isAssociativeArray(array $array) : bool;
     
     /**
      * Checks to see if a value is empty or not - additionally includes special handling for strings.
@@ -32,7 +31,7 @@ interface IPhpHelper
      *
      */
     
-    static function isEmpty($variable, $orWhiteSpaceIfString = true, $orEmptyIfArray = true);
+    static function isEmpty($variable, bool $orWhiteSpaceIfString = true, bool $orEmptyIfArray = true) : bool;
     
     /**
      * Checks to see if a class inherits another class.
@@ -45,7 +44,7 @@ interface IPhpHelper
      *
      */
     
-    static function inherits($childClassName, $parentClassName);
+    static function inherits(string $childClassName, string $parentClassName) : bool;
     
     /**
      * Checks to see if a variable is an object, or an object of a certain type.
@@ -60,7 +59,7 @@ interface IPhpHelper
      *
      */
     
-    static function isObject($variable, $className = null, $parent = true, $class = true);
+    static function isObject($variable, string $className = null, bool $parent = true, bool $class = true) : bool;
     
     /**
      * Checks to see if a variable is an array - and additionally will filter for either associative or flat arrays, both or neither.
@@ -73,7 +72,7 @@ interface IPhpHelper
      *
      */
     
-    static function isArray($variable, $isAssociative = true);
+    static function isArray($variable, bool $isAssociative = true) : bool;
     
     /**
      * method
@@ -82,7 +81,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isString($variable = null);
+    static function isString($variable = null) : bool;
     
     /**
      * method
@@ -91,7 +90,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isReal($variable = null);
+    static function isReal($variable = null) : bool;
     
     /**
      * method
@@ -100,7 +99,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isFloat($variable = null);
+    static function isFloat($variable = null) : bool;
     
     /**
      * method
@@ -109,7 +108,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isDouble($variable = null);
+    static function isDouble($variable = null) : bool;
     
     /**
      * method
@@ -118,7 +117,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function hasDecimals($variable = null);
+    static function hasDecimals($variable = null) : bool;
     
     /**
      * method
@@ -127,7 +126,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isInt($variable = null);
+    static function isInt($variable = null) : bool;
     
     /**
      * method
@@ -136,7 +135,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isBool($variable = null);
+    static function isBool($variable = null) : bool;
     
     /**
      * method
@@ -145,7 +144,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isCallable($variable = null);
+    static function isCallable($variable = null) : bool;
     
     /**
      * method
@@ -154,7 +153,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isNull($variable = null);
+    static function isNull($variable = null) : bool;
     
     /**
      * method
@@ -163,7 +162,7 @@ interface IPhpHelper
      * @return bool
      */
     
-    static function isType($typeString, $variable = null);
+    static function isType(string $typeString, $variable = null) : bool;
     
     /**
      * method
@@ -172,7 +171,7 @@ interface IPhpHelper
      * @return ?array
      */
     
-    static function toArray($variable, $allowDeserialization = false, $splitCharacterIfString = null);
+    static function toArray($variable, bool $allowDeserialization = false, string $splitCharacterIfString = null) : ?array;
     
     /**
      * method
@@ -181,7 +180,7 @@ interface IPhpHelper
      * @return ?string
      */
     
-    static function toString($variable = null, $allowDeserialization = false, $joinCharacterIfArray = null);
+    static function toString($variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null) : ?string;
     
     /**
      * method
@@ -190,7 +189,7 @@ interface IPhpHelper
      * @return ?float
      */
     
-    static function toFloat($variable = null, $allowDeserialization = false);
+    static function toFloat($variable = null, bool $allowDeserialization = false) : ?float;
     
     /**
      * method
@@ -199,7 +198,7 @@ interface IPhpHelper
      * @return ?int
      */
     
-    static function toInt($variable = null, $allowDeserialization = false);
+    static function toInt($variable = null, bool $allowDeserialization = false) : ?int;
     
     /**
      * method
@@ -208,7 +207,7 @@ interface IPhpHelper
      * @return ?bool
      */
     
-    static function toBool($variable = null, $allowDeserialization = false);
+    static function toBool($variable = null, bool $allowDeserialization = false) : ?bool;
     
     /**
      * Returns a NULL if that value is null or false - otherwise, the value.
@@ -216,7 +215,7 @@ interface IPhpHelper
      * @param mixed $variable The variable to convert.
      */
     
-    static function toNull($variable, $orWhiteSpaceIfString = true, $orEmptyIfArray = true);
+    static function toNull($variable, bool $orWhiteSpaceIfString = true, bool $orEmptyIfArray = true);
     
     /**
      * 
@@ -232,7 +231,7 @@ interface IPhpHelper
      * @return array Return the properties and their values as an associative array.
      */
     
-    static function getObjectProperties($object, $public = true, $protected = false, $private = false);
+    static function getObjectProperties($object, bool $public = true, bool $protected = false, bool $private = false) : array;
     
     /**
      * 
@@ -246,7 +245,7 @@ interface IPhpHelper
      * @return array Return the properties and their values as an  associative array.
      */
     
-    static function getObjectPropertyValues($object, $public = true, $protected = false, $private = false);
+    static function getObjectPropertyValues($object, bool $public = true, bool $protected = false, bool $private = false) : array;
     
     /**
      * 
@@ -264,7 +263,7 @@ interface IPhpHelper
      * @return array Return the methods and their callables as an  associative array.
      */
     
-    static function getObjectMethods($object, $public = true, $protected = false, $private = false, $abstract = true, $final = true);
+    static function getObjectMethods($object, bool $public = true, bool $protected = false, bool $private = false, bool $abstract = true, bool $final = true) : array;
     
     /**
      * 
@@ -275,7 +274,7 @@ interface IPhpHelper
      * @return int Return the hash as an int.
      */
     
-    static function getArrayHash(array $array);
+    static function getArrayHash(array $array) : int;
     
     /**
      * 
@@ -286,7 +285,7 @@ interface IPhpHelper
      * @return int Return the hash as an int.
      */
     
-    static function getObjectHash($object);
+    static function getObjectHash($object) : int;
     
     /**
      * Returns the value of the $_SERVER['REQUEST_URI'] variable.
@@ -294,7 +293,7 @@ interface IPhpHelper
      * @return ?string Return the value.
      */
     
-    static function getServerRequestUri();
+    static function getServerRequestUri() : ?string;
     
     /**
      * Returns the value of the $_SERVER['DOCUMENT_ROOT'] variable.
@@ -302,7 +301,7 @@ interface IPhpHelper
      * @return ?string Return the value.
      */
     
-    static function getServerDocumentRoot();
+    static function getServerDocumentRoot() : ?string;
     
     /**
      * Return whether the current script is running in a command-line context, or somewhere else (like a web server).
@@ -310,7 +309,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if we are running as a command-line script - __false__ otherwise. 
      */
     
-    static function isCommandLine();
+    static function isCommandLine() : bool;
     
     /**
      * Return whether the current script is running in a Web context, or somewhere else (like the command-line).
@@ -318,7 +317,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if we are running as a Web script - __false__ otherwise. 
      */
     
-    static function isWebServer();
+    static function isWebServer() : bool;
     
     /**
      * Return whether a variable is countable.
@@ -326,7 +325,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if it is, __false__ otherwise. 
      */
     
-    static function isCountable($variable);
+    static function isCountable($variable) : bool;
     
     /**
      * Returns the first result of a single or multiple calls to filter_input() and validates input parameters.
@@ -339,7 +338,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if $variable is countable, __false__ otherwise.
      */
     
-    static function filterInput($variableName, array $inputs = [], $filter = null, array $options = []);
+    static function filterInput(string $variableName, array $inputs = [], int $filter = null, array $options = []);
     
     //    /**
     //     * Suppress errors, warnings and/or notices and execute the specified closure; returning the resulting value.
@@ -364,7 +363,7 @@ interface IPhpHelper
      * 
      */
     
-    static function obGet(callable $closure, ...$parameters);
+    static function obGet(callable $closure, ...$parameters) : ?string;
     
     /**
      * Check if a string ends with a substring.
@@ -375,7 +374,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if $string ends with $subString, __false__ if not.
      */
     
-    static function strEndsWith($string, $subString);
+    static function strEndsWith(string $string, string $subString) : bool;
     
     /**
      * Check if a string starts with a substring.
@@ -386,7 +385,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if $string starts with $subString, __false__ if not.
      */
     
-    static function strStartsWith($string, $subString);
+    static function strStartsWith(string $string, string $subString) : bool;
     
     /**
      * Count the number of elements in a Countable. This method does the same as count(), except that it returns __NULL__ if the $variable is not countable.
@@ -397,7 +396,7 @@ interface IPhpHelper
      *
      */
     
-    static function count($variable);
+    static function count($variable) : ?int;
     
     /**
      * Checks if a string contains a substring. If $position is specified, it will check for a substring at a specific position.
@@ -409,7 +408,7 @@ interface IPhpHelper
      * @return bool Returns __true__ if $string contains $subString (if $position is not specified), __true__ if $string contains $substring at the specified position (if $position is specified), or __false_ otherwise.
      */
     
-    static function strContains($string, $subString, $position = null);
+    static function strContains(string $string, string $subString, int $position = null) : bool;
     
     /**
      * Returns the path of the calling method or function.
@@ -418,7 +417,7 @@ interface IPhpHelper
      * 
      */
     
-    static function getCallingPath();
+    static function getCallingPath() : string;
     
     /**
      * Returns the name of the class from where the current function/method was called.
@@ -427,7 +426,7 @@ interface IPhpHelper
      * 
      */
     
-    static function getCallingClass();
+    static function getCallingClass() : string;
     
     //   /**
     //    * Returns the method / function parameters as an associative array (name => [ 'type' => __type__, 'value' => __value__ ]).
@@ -447,7 +446,7 @@ interface IPhpHelper
      * @return string The modified subject.
      */
     
-    static function strReplaceAll(array $strings, $replacement, $subject, $ignoreCase = false, &$count = null);
+    static function strReplaceAll(array $strings, string $replacement, string $subject, bool $ignoreCase = false, int &$count = null) : string;
     
     /**
      * Strip white-space from a string.
@@ -457,7 +456,7 @@ interface IPhpHelper
      * @return string The resulting string.
      */
     
-    static function strStripWhiteSpace($subject, $replaceWith = ' ');
+    static function strStripWhiteSpace(string $subject, string $replaceWith = ' ') : string;
     
     /**
      * Convert a string to dashed case.
@@ -467,7 +466,7 @@ interface IPhpHelper
      * @return string The resulting string.
      */
     
-    static function strToDashedCase($subject);
+    static function strToDashedCase(string $subject) : string;
     
     /**
      * 
@@ -477,7 +476,7 @@ interface IPhpHelper
      * @return string
      */
     
-    static function serialize($something);
+    static function serialize($something) : string;
     
     /**
      * 
@@ -487,6 +486,6 @@ interface IPhpHelper
      * @return ?object
      */
     
-    static function optimisticClone($obj, $excludeClosures = true, $levels = null);
+    static function optimisticClone($obj, bool $excludeClosures = true, int $levels = null);
 
 }

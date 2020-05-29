@@ -23,16 +23,16 @@
     },
     "require": {
         "php": ">=5.6",
-        "ion/auto-loader": "^0.5.2"
+        "ion/autoloader": "^0.5"
     },
     "require-dev": {
-        "ion/dev": "@dev"
+        "ion/dev": "dev-master"
     }, 
     "minimum-stability": "dev",
     "autoload": {
-      "files": [
-        "bootstrap.php"
-      ]
+        "files": [
+            "autoload.php"
+        ]
     },    
     "autoload-dev": {
         "psr-4": {

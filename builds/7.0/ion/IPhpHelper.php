@@ -4,7 +4,6 @@
  */
 namespace ion;
 
-use ion\Types\Arrays\IMap;
 
 interface IPhpHelper
 {
@@ -75,35 +74,140 @@ interface IPhpHelper
     
     static function isArray($variable, bool $isAssociative = true) : bool;
     
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
+    
     static function isString($variable = null) : bool;
+    
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
     
     static function isReal($variable = null) : bool;
     
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
+    
     static function isFloat($variable = null) : bool;
+    
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
     
     static function isDouble($variable = null) : bool;
     
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
+    
     static function hasDecimals($variable = null) : bool;
+    
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
     
     static function isInt($variable = null) : bool;
     
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
+    
     static function isBool($variable = null) : bool;
+    
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
     
     static function isCallable($variable = null) : bool;
     
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
+    
     static function isNull($variable = null) : bool;
+    
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
     
     static function isType(string $typeString, $variable = null) : bool;
     
-    static function toArray($variable, bool $allowDeserialization = false, string $splitCharacterIfString = null) : ?array;
+    /**
+     * method
+     * 
+     * 
+     * @return ?array
+     */
     
-    static function toString($variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null) : ?string;
+    static function toArray($variable, bool $allowDeserialization = false, string $splitCharacterIfString = null);
     
-    static function toFloat($variable = null, bool $allowDeserialization = false) : ?float;
+    /**
+     * method
+     * 
+     * 
+     * @return ?string
+     */
     
-    static function toInt($variable = null, bool $allowDeserialization = false) : ?int;
+    static function toString($variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null);
     
-    static function toBool($variable = null, bool $allowDeserialization = false) : ?bool;
+    /**
+     * method
+     * 
+     * 
+     * @return ?float
+     */
+    
+    static function toFloat($variable = null, bool $allowDeserialization = false);
+    
+    /**
+     * method
+     * 
+     * 
+     * @return ?int
+     */
+    
+    static function toInt($variable = null, bool $allowDeserialization = false);
+    
+    /**
+     * method
+     * 
+     * 
+     * @return ?bool
+     */
+    
+    static function toBool($variable = null, bool $allowDeserialization = false);
     
     /**
      * Returns a NULL if that value is null or false - otherwise, the value.
@@ -127,7 +231,7 @@ interface IPhpHelper
      * @return array Return the properties and their values as an associative array.
      */
     
-    static function getObjectProperties(object $object, bool $public = true, bool $protected = false, bool $private = false) : array;
+    static function getObjectProperties($object, bool $public = true, bool $protected = false, bool $private = false) : array;
     
     /**
      * 
@@ -141,7 +245,7 @@ interface IPhpHelper
      * @return array Return the properties and their values as an  associative array.
      */
     
-    static function getObjectPropertyValues(object $object, bool $public = true, bool $protected = false, bool $private = false) : array;
+    static function getObjectPropertyValues($object, bool $public = true, bool $protected = false, bool $private = false) : array;
     
     /**
      * 
@@ -159,7 +263,7 @@ interface IPhpHelper
      * @return array Return the methods and their callables as an  associative array.
      */
     
-    static function getObjectMethods(object $object, bool $public = true, bool $protected = false, bool $private = false, bool $abstract = true, bool $final = true) : array;
+    static function getObjectMethods($object, bool $public = true, bool $protected = false, bool $private = false, bool $abstract = true, bool $final = true) : array;
     
     /**
      * 
@@ -181,7 +285,7 @@ interface IPhpHelper
      * @return int Return the hash as an int.
      */
     
-    static function getObjectHash(object $object) : int;
+    static function getObjectHash($object) : int;
     
     /**
      * Returns the value of the $_SERVER['REQUEST_URI'] variable.
@@ -189,7 +293,7 @@ interface IPhpHelper
      * @return ?string Return the value.
      */
     
-    static function getServerRequestUri() : ?string;
+    static function getServerRequestUri();
     
     /**
      * Returns the value of the $_SERVER['DOCUMENT_ROOT'] variable.
@@ -197,7 +301,7 @@ interface IPhpHelper
      * @return ?string Return the value.
      */
     
-    static function getServerDocumentRoot() : ?string;
+    static function getServerDocumentRoot();
     
     /**
      * Return whether the current script is running in a command-line context, or somewhere else (like a web server).
@@ -259,7 +363,7 @@ interface IPhpHelper
      * 
      */
     
-    static function obGet(callable $closure, ...$parameters) : ?string;
+    static function obGet(callable $closure, ...$parameters);
     
     /**
      * Check if a string ends with a substring.
@@ -292,7 +396,7 @@ interface IPhpHelper
      *
      */
     
-    static function count($variable) : ?int;
+    static function count($variable);
     
     /**
      * Checks if a string contains a substring. If $position is specified, it will check for a substring at a specific position.
@@ -382,6 +486,6 @@ interface IPhpHelper
      * @return ?object
      */
     
-    static function optimisticClone(object $obj, bool $excludeClosures = true, int $levels = null) : ?object;
+    static function optimisticClone($obj, bool $excludeClosures = true, int $levels = null);
 
 }
