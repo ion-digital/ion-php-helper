@@ -1,4 +1,4 @@
 {
-    "debug": false,
-    "cache": true
+    "debug": true,
+    "cache": false
 }
