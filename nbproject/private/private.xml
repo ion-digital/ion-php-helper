@@ -8,5 +8,9 @@
             <file>file:/D:/justus/Documents/Projects/NetBeans/PHPHelper/source/ion/PhpHelper.php</file>
         </group>
         <group name="PHP"/>
+        <group name="REDi">
+            <file>file:/D:/prj/dev/ion/php/php-helper/source/classes/ion/PhpHelper.php</file>
+            <file>file:/D:/prj/dev/ion/php/php-helper/source/classes/ion/IPhpHelper.php</file>
+        </group>
     </open-files>
 </project-private>

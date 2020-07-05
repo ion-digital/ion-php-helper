@@ -125,8 +125,8 @@ class CallingClass {
 
 class PhpHelperTest extends TestCase {
     
-    const SLUG = 'the-quick-brown-fox-jumps-over-the-lazy-dog';
-    const SINGLE_LINE_SENTENCE = 'The quick brown fox, jumps over the lazy dog.';    
+    const SLUG = 'the-quick-brown-fox-jumps-over-the-lazy-dog-1-2-3';
+    const SINGLE_LINE_SENTENCE = 'The quick brown fox, jumps over the lazy dog 1 2 3.';    
     
     public function testIsAssociativeArray() {
         
@@ -515,12 +515,19 @@ class PhpHelperTest extends TestCase {
     
     public function testGetArrayHash() {
         
-        $array = [ 1, 1.1, true, false, new ClassF(), [ 3, 4, 5 ] ];
+        $array1 = [ 1, 1.1, true, false, new ClassF(), [ 3, 4, 5 ] ];
         
-        $hash = PHP::getArrayHash($array);
+        $hash1 = PHP::getArrayHash($array1);
         
         //$this->assertEquals(173265430, $hash);        
-        $this->assertNotNull($hash);
+        $this->assertNotNull($hash1);
+        
+        
+        $array2 = [ 'obj' => new ClassF() ];
+        
+        $hash2 = PHP::getArrayHash($array2);
+        
+        $this->assertNotNull($hash2);
     }
 	
     public function testGetObjectHash() {
