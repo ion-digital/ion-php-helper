@@ -12,7 +12,4 @@ pipelines:
           - apt-get install -y libxslt1-dev
           - docker-php-ext-install -j$(nproc) xsl
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-          - composer update
-          - chmod +x vendor/phpunit/phpunit/phpunit
-          - chmod +x vendor/bin/phpunit
-          - ./vendor/bin/phing -f ./build.xml tests
+          - composer update --no-dev

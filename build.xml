@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="ion/php-helper" default="info">
-    <import file="vendor/ion/dev/source/ant/package-build.xml" />
-</project>
