@@ -571,7 +571,13 @@ class PhpHelper implements IPhpHelper
                 continue;
             }
             if (static::isArray($value)) {
-                $sig[] = (string) static::getArrayHash($value);
+                if ($array !== $value) {
+                    $sig[] = (string) static::getArrayHash($value);
+                }
+                continue;
+            }
+            if ($value === null) {
+                $sig[] = 'NULL';
                 continue;
             }
             $sig[] = (string) $value;
@@ -590,26 +596,24 @@ class PhpHelper implements IPhpHelper
     {
         $sig = [get_class($object)];
         $properties = static::getObjectPropertyValues($object, true, true, true);
-        $sig[] = static::getArrayHash($properties);
-        //        foreach($properties as $property => $value) {
-        //
-        //            if(static::isObject($value)) {
-        //
-        //                $sig[] = (string) static::getObjectHash($value);
-        //
-        //                continue;
-        //            }
-        //
-        //            if(static::isArray($value)) {
-        //
-        //                $sig[] = (string) static::getArrayHash($value);
-        //
-        //                continue;
-        //            }
-        //
-        //            $sig[] = (string) $value;
-        //
-        //        }
+        //        $sig[] = static::getArrayHash($properties);
+        foreach ($properties as $property => $value) {
+            if (static::isObject($value)) {
+                if ($object != $value) {
+                    $sig[] = (string) static::getObjectHash($value);
+                }
+                continue;
+            }
+            if (static::isArray($value)) {
+                $sig[] = (string) static::getArrayHash($value);
+                continue;
+            }
+            if ($value === null) {
+                $sig[] = 'NULL';
+                continue;
+            }
+            $sig[] = (string) $value;
+        }
         return crc32(join('', $sig));
     }
     
@@ -713,6 +717,7 @@ class PhpHelper implements IPhpHelper
         return null;
     }
     
+    //TODO: Read https://stackoverflow.com/questions/25232975/php-filter-inputinput-server-request-method-returns-null and evaluate this method.
     /**
      * method
      * 
