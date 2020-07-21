@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "390e3e95ace09ad6e0754663d5ece790",
+    "content-hash": "eac2e057b1f64e7a8d9476418c2317e1",
     "packages": [
         {
             "name": "ion/autoloader",
-            "version": "v0.6.1",
+            "version": "v0.6.2+release/master",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/ion-digital-projects/autoloader.git",
-                "reference": "2ae622959c000a912c7ef163bd69f29a4f341786"
+                "reference": "6d46c9e93d3b353a112493b1eec692c3a56c5170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/ion-digital-projects/autoloader/get/2ae622959c000a912c7ef163bd69f29a4f341786.zip",
-                "reference": "2ae622959c000a912c7ef163bd69f29a4f341786",
+                "url": "https://bitbucket.org/ion-digital-projects/autoloader/get/6d46c9e93d3b353a112493b1eec692c3a56c5170.zip",
+                "reference": "6d46c9e93d3b353a112493b1eec692c3a56c5170",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6"
             },
             "require-dev": {
-                "ion/dev": "dev-master",
+                "ion/dev": "dev-release/master",
                 "php": "^7.2"
             },
             "type": "library",
@@ -54,7 +54,7 @@
                 "bootstrap",
                 "php"
             ],
-            "time": "2020-07-16T16:29:49+00:00"
+            "time": "2020-07-21T11:48:04+00:00"
         }
     ],
     "packages-dev": [
@@ -130,16 +130,16 @@
         },
         {
             "name": "ion/dev",
-            "version": "dev-master",
+            "version": "dev-release/master",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/ion-digital-projects/dev.git",
-                "reference": "4ba7282e025e36bb5c1f4359271851f16122d8a4"
+                "reference": "d0ebf6035c86fd13cb1a1cde67eeff82c4751bc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/ion-digital-projects/dev/get/4ba7282e025e36bb5c1f4359271851f16122d8a4.zip",
-                "reference": "4ba7282e025e36bb5c1f4359271851f16122d8a4",
+                "url": "https://bitbucket.org/ion-digital-projects/dev/get/d0ebf6035c86fd13cb1a1cde67eeff82c4751bc9.zip",
+                "reference": "d0ebf6035c86fd13cb1a1cde67eeff82c4751bc9",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
                 "development tools",
                 "ion"
             ],
-            "time": "2020-07-15T19:18:07+00:00"
+            "time": "2020-07-21T10:56:20+00:00"
         },
         {
             "name": "ion/php-trans-porter",
@@ -724,12 +724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "eb3320ef010709f339f118dde1645e197c4961ec"
+                "reference": "1ac416df3f66c542f2d3688925105b539f064b64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/eb3320ef010709f339f118dde1645e197c4961ec",
-                "reference": "eb3320ef010709f339f118dde1645e197c4961ec",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/1ac416df3f66c542f2d3688925105b539f064b64",
+                "reference": "1ac416df3f66c542f2d3688925105b539f064b64",
                 "shasum": ""
             },
             "require": {
@@ -768,7 +768,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2020-07-09T12:42:26+00:00"
+            "time": "2020-07-21T08:16:41+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
