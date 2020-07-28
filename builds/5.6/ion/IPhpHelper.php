@@ -487,5 +487,16 @@ interface IPhpHelper
      */
     
     static function optimisticClone($obj, $excludeClosures = true, $levels = null);
+    
+    /**
+     * 
+     * Create a semi-constant value, based on the position from where it is called in the source code.
+     * 
+     * The value is 'semi'-constant, as it will always remain the same as long as the call isn't moved 
+     * textually (e.g. moved to a different column or row in the source).
+     * 
+     */
+    
+    static function getLineAnchor();
 
 }

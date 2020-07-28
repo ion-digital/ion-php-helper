@@ -1058,5 +1058,17 @@ class PhpHelper implements IPhpHelper
         }
         return serialize($something);
     }
+    
+    /**
+     * method
+     * 
+     * @return string
+     */
+    
+    public static function getLineAnchor() : string
+    {
+        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
+        return md5($trace['file'] . $trace['line']);
+    }
 
 }

@@ -889,4 +889,11 @@ class PhpHelperTest extends TestCase {
         
         $this->assertEquals(self::class, PHP::getCallingClass());              
     }
+    
+    public function testLineAnchor() {
+        
+        $tmp = md5(__FILE__ . __LINE__); $anchor = PHP::getLineAnchor(); // These two statements need to be on one line!        
+        
+        $this->assertEquals($anchor, $tmp);        
+    }
 }
