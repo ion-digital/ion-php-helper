@@ -146,7 +146,7 @@ class PhpHelper implements IPhpHelper
         if ($variable === null) {
             return false;
         }
-        return is_float($variable);
+        return static::isFloat($variable) || static::isDouble($variable);
     }
     
     /**
@@ -158,7 +158,7 @@ class PhpHelper implements IPhpHelper
     
     public static function isFloat($variable = null) : bool
     {
-        return static::isReal($variable);
+        return is_float($variable);
     }
     
     /**
@@ -170,7 +170,19 @@ class PhpHelper implements IPhpHelper
     
     public static function isDouble($variable = null) : bool
     {
-        return static::isReal($variable);
+        return is_double($variable);
+    }
+    
+    /**
+     * method
+     * 
+     * 
+     * @return bool
+     */
+    
+    public static function isNumeric($variable = null) : bool
+    {
+        return static::isInt($variable) || static::isReal($variable);
     }
     
     /**

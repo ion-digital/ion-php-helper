@@ -168,6 +168,15 @@ interface IPhpHelper
      * method
      * 
      * 
+     * @return bool
+     */
+    
+    static function isNumeric($variable = null);
+    
+    /**
+     * method
+     * 
+     * 
      * @return ?array
      */
     
