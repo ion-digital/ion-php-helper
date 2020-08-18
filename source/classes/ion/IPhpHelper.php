@@ -94,7 +94,9 @@ interface IPhpHelper
     
     static function isNull(/* mixed */ $variable = null): bool;
     
-    static function isType(string $typeString, /* mixed */ $variable = null): bool;    
+    static function isType(string $typeString, /* mixed */ $variable = null): bool;   
+    
+    static function isNumeric(/* mixed */ $variable = null): bool;
     
     static function toArray(/* mixed */ $variable, bool $allowDeserialization = false, string $splitCharacterIfString = null): ?array;
     

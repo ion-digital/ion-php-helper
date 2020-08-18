@@ -116,18 +116,23 @@ class PhpHelper implements IPhpHelper {
             return false;
         }
  
-        return is_float($variable);        
+        return static::isFloat($variable) || static::isDouble($variable);        
     } 
     
     public static function isFloat(/* mixed */ $variable = null): bool {
 
-        return static::isReal($variable);        
+        return is_float($variable);        
     }         
     
     public static function isDouble(/* mixed */ $variable = null): bool {
 
-        return static::isReal($variable);        
+        return is_double($variable);        
     } 
+    
+    public static function isNumeric(/* mixed */ $variable = null): bool {
+        
+        return (static::isInt($variable) || static::isReal($variable));
+    }
 
     public static function hasDecimals(/* mixed */ $variable = null): bool {
 

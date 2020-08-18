@@ -330,7 +330,7 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals(false, PHP::isReal($object));        
     }
     
-    public function testIsInt() {
+    public function testIsDouble() {
         
         $string = 'STRING';
         $int = 1;
@@ -339,12 +339,29 @@ class PhpHelperTest extends TestCase {
         $array = [];
         $object = new ClassA();
         
-        $this->assertEquals(false, PHP::isInt($string));
-        $this->assertEquals(true, PHP::isInt($int));
-        $this->assertEquals(false, PHP::isInt($float));
-        $this->assertEquals(false, PHP::isInt($bool));
-        $this->assertEquals(false, PHP::isInt($array));
-        $this->assertEquals(false, PHP::isInt($object));        
+        $this->assertEquals(false, PHP::isDouble($string));
+        $this->assertEquals(false, PHP::isDouble($int));
+        $this->assertEquals(true, PHP::isDouble($float));
+        $this->assertEquals(false, PHP::isDouble($bool));
+        $this->assertEquals(false, PHP::isDouble($array));
+        $this->assertEquals(false, PHP::isDouble($object));        
+    }    
+    
+    public function testIsNumeric() {
+        
+        $string = 'STRING';
+        $int = 1;
+        $float = (float) 0.123;
+        $bool = false;
+        $array = [];
+        $object = new ClassA();
+        
+        $this->assertEquals(false, PHP::isNumeric($string));
+        $this->assertEquals(true, PHP::isNumeric($int));
+        $this->assertEquals(true, PHP::isNumeric($float));
+        $this->assertEquals(false, PHP::isNumeric($bool));
+        $this->assertEquals(false, PHP::isNumeric($array));
+        $this->assertEquals(false, PHP::isNumeric($object));        
     }
     
     public function testIsBool() {
