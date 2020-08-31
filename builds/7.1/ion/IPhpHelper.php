@@ -506,6 +506,6 @@ interface IPhpHelper
      * 
      */
     
-    static function getLineAnchor() : string;
+    static function getLineAnchor(int $backTraceDepth = 1) : string;
 
 }

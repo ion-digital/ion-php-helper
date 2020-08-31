@@ -1074,12 +1074,13 @@ class PhpHelper implements IPhpHelper
     /**
      * method
      * 
+     * 
      * @return string
      */
     
-    public static function getLineAnchor()
+    public static function getLineAnchor($backTraceDepth = 1)
     {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0];
+        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, $backTraceDepth)[0];
         return md5($trace['file'] . $trace['line']);
     }
 
