@@ -1083,5 +1083,60 @@ class PhpHelper implements IPhpHelper
         $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, $backTraceDepth)[0];
         return md5($trace['file'] . $trace['line']);
     }
+    
+    /**
+     * method
+     * 
+     * 
+     * @return string
+     */
+    
+    public static function base64Encode($string, $urlSafe = false)
+    {
+        $data = base64_encode($string);
+        if ($urlSafe) {
+            $data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
+        }
+        return $data;
+    }
+    
+    /**
+     * method
+     * 
+     * 
+     * @return string
+     */
+    
+    public static function base64Decode($string, $urlSafe = false)
+    {
+        $data = $string;
+        if ($urlSafe) {
+            $data = str_replace(array('-', '_'), array('+', '/'), $string);
+            $mod4 = strlen($data) % 4;
+            if ($mod4) {
+                $data .= substr('====', $mod4);
+            }
+        }
+        return base64_decode($data);
+    }
+    
+    /**
+     * method
+     * 
+     * 
+     * @return string
+     */
+    
+    public static function randomBytes($length)
+    {
+        if (function_exists('random_bytes')) {
+            return random_bytes($length);
+        }
+        $ret = '';
+        for ($i = 0; $i < $length; $i++) {
+            $ret .= chr(rand(0, 255));
+        }
+        return $ret;
+    }
 
 }

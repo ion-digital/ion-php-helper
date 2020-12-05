@@ -401,4 +401,38 @@ interface IPhpHelper
      */
    
    static function getLineAnchor(int $backTraceDepth = 1): string;
+   
+   /**
+    * 
+    * Base64 encode a string either with the native PHP base64_encode() function; or using an URL safe
+    * version (compatible with Python).
+    * 
+    * @param string $string
+    * @param bool $urlSafe
+    * @return string
+    */
+   
+   static function base64Encode(string $string, bool $urlSafe = false): string;
+   
+   /**
+    * 
+    * Base64 decode a string either with the native PHP base64_decode() function; or using an URL safe
+    * version (compatible with Python).
+    * 
+    * @param string $string
+    * @param bool $urlSafe
+    * @return string
+    */
+   
+   static function base64Decode(string $string, bool $urlSafe = false): string;  
+   
+   /**
+    * 
+    * Generates a string of random bytes (either using random_bytes() if available - otherwise using rand(0, 255) and chr().
+    * 
+    * @param int $size
+    * @return string
+    */
+   
+   static function randomBytes(int $size): string;
 }

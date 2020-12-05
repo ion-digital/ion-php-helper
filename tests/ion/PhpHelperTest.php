@@ -913,4 +913,31 @@ class PhpHelperTest extends TestCase {
         
         $this->assertEquals($anchor, $tmp);        
     }
+    
+    public function testBase64() {
+        
+        $string = "This is a string.";        
+        
+        $this->assertEquals(base64_encode($string), PHP::base64Encode($string, false));
+        $this->assertEquals($string, PHP::base64Decode(PHP::base64Encode($string, false)));
+        
+        //die(base64_encode('TEST'));
+        
+        //$this->assertEquals(urlencode(base64_encode($string)), urlencode(PHP::base64Encode($string, true)));
+        $this->assertEquals($string, PHP::base64Decode(PHP::base64Encode($string, true)));        
+    }
+    
+    public function testRandomBytes() {
+        
+        $tmp = null;
+        
+        for($i = 0; $i < 1000; $i++) {
+            
+            $tmp = PHP::randomBytes(32);
+            $this->assertNotEquals($tmp, PHP::randomBytes(32));
+        }
+        
+        
+        
+    }
 }
