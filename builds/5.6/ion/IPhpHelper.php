@@ -314,6 +314,15 @@ interface IPhpHelper
     static function getServerRequestUri($includeHost = false, $includeProtocol = true);
     
     /**
+     * 
+     * Returns the value of the $_SERVER['HTTP_REFERER'] variable.
+     * 
+     * @return string|null
+     */
+    
+    static function getServerReferrerUri();
+    
+    /**
      * Returns the value of the $_SERVER['DOCUMENT_ROOT'] variable.
      * 
      * @return ?string Return the value.

@@ -696,6 +696,18 @@ class PhpHelper implements IPhpHelper {
             (!self::isEmpty($host) ? $host : "") .
             $path;
     }
+    
+    public static function getServerReferrerUri(): ?string {
+        
+        $tmp = self::toString(self::filterInput('HTTP_REFERER', [ INPUT_SERVER ], FILTER_DEFAULT));
+        
+        if(!self::isEmpty($tmp)) {
+            
+            return $tmp;
+        }
+            
+        return self::toString($_SERVER['HTTP_REFERER']);
+    }
 
     public static function getServerDocumentRoot(): ?string {
 

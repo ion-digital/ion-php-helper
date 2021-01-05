@@ -204,6 +204,15 @@ interface IPhpHelper
         ): ?string;
 
     /**
+     * 
+     * Returns the value of the $_SERVER['HTTP_REFERER'] variable.
+     * 
+     * @return string|null
+     */
+    
+    static function getServerReferrerUri(): ?string;
+    
+    /**
      * Returns the value of the $_SERVER['DOCUMENT_ROOT'] variable.
      * 
      * @return ?string Return the value.
