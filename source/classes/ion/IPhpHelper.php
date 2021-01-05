@@ -106,7 +106,7 @@ interface IPhpHelper
 
     static function toInt(/* mixed */ $variable = null, bool $allowDeserialization = false): ?int;
     
-    static function toBool(/* mixed */ $variable = null, bool $allowDeserialization = false): ?bool;
+    static function toBool(/* mixed */ $variable = null, bool $allowDeserialization = false, bool $checkElementsIfArray = false): ?bool;
     
     /**
      * Returns a NULL if that value is null or false - otherwise, the value.
@@ -190,10 +190,18 @@ interface IPhpHelper
     /**
      * Returns the value of the $_SERVER['REQUEST_URI'] variable.
      * 
+     * @param bool $includeHost Include the host.
+     * @param bool $includeProtocol Include the protocol.
      * @return ?string Return the value.
      */
     
-    static function getServerRequestUri(): ?string;
+    //TODO: In the next major update, $includeHost's default should be flipped to true.
+    static function getServerRequestUri(
+            
+            bool $includeHost = false,
+            bool $includeProtocol = true
+            
+        ): ?string;
 
     /**
      * Returns the value of the $_SERVER['DOCUMENT_ROOT'] variable.
@@ -375,17 +383,30 @@ interface IPhpHelper
     * 
     * Serialize something (except closures).
     * 
-    * @param type $something
+    * @param mixed $something The variable to serialize.
     * @return string
     */
    
-   static function serialize($something): string;
+   static function serialize($something = null): string;
+   
+   /**
+    * 
+    * Unserialize something (except closures).
+    * 
+    * @param string $something The string to unserialize.
+    * @param bool $strict If set to __true__, the method will not treat a blank string as valid.
+    * 
+    * @return string
+    */
+   
+   static function unserialize(string $something, bool $strict = false);   
    
    /**
     * 
     * Clone an object optimistically - in other words, take what we can and skip what we can't.
     * 
-    * @param object $something 
+    * @param object $something The object to clone.
+    * 
     * @return ?object
     */   
    

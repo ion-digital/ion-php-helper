@@ -298,21 +298,23 @@ class PhpHelper implements IPhpHelper {
 
             return null;
         }
-
-        if (static::isString($variable) && $allowDeserialization) {
-
+        
+        if (static::isString($variable) && $allowDeserialization) {            
+            
             $tmp = json_decode($variable, JSON_OBJECT_AS_ARRAY);
 
-            if ($tmp !== null) {
+            if (!self::isEmpty($tmp)) {
 
-                return $tmp;
+                return self::toScalar($tmp, $callBack, false);
             }
 
-            $tmp = @unserialize($variable);
-
-            if ($tmp !== false) {
-
-                return $tmp;
+            try {
+                
+                return self::toScalar(self::unserialize($variable, true), $callBack, false);
+            
+            } catch(PhpHelperException $exception) {
+                
+                return self::toScalar($variable, $callBack, false);
             }
         }
 
@@ -413,39 +415,106 @@ class PhpHelper implements IPhpHelper {
                 }, $allowDeserialization);
     }
 
-    public static function toBool(/* mixed */ $variable = null, bool $allowDeserialization = false): ?bool {
+    public static function toBool(/* mixed */ $variable = null, bool $allowDeserialization = false, bool $checkElementsIfArray = false): ?bool {
 
-        return static::toScalar($variable, function($variable) use ($allowDeserialization) {
+        return static::toScalar($variable, function($variable) use ($allowDeserialization, $checkElementsIfArray) {
 
+                    if($variable === null) {
+                        
+                        return null;
+                    }
+            
                     if (static::isBool($variable)) {
 
                         return (bool) $variable;
                     }
+      
+                    if(static::isCountable($variable)) {
+                        
+                        if(!$checkElementsIfArray) {
+                            
+                            if(static::count($variable) === 0) {
+
+                                return false;
+                            }               
+                            
+                            return true;
+                        }
+                        
+                        $t = 0;
+                        $f = 0;
+                        
+                        if(static::count($variable) === 0) {
+                            
+                            return null;
+                        }
+
+                        foreach($variable as $index => $value) {
+                            
+                            if(self::toBool($value, $allowDeserialization, $checkElementsIfArray) === true) {
+                                
+                                $t++;
+                                continue;
+                            }
+                            
+                            $f++;
+                        }
+                        
+                        if($t === $f) {
+                            
+                            return null;
+                        }
+                        
+                        return ($t > $f);
+                    }
 
                     if (static::isString($variable)) {
 
-                        switch ($variable) {
+                        if(static::isEmpty($variable, true)) {
+                            
+                            return false;
+                        }
+                        
+                        switch (trim(strToLower($variable))) {
 
+                            case 'enabled':
+                            case 'enable':
                             case '1':
                             case 'true':
                             case 'on':
                             case 'yes':
                             case 'y': {
 
-                                    return true;
-                                }
+                                return true;
+                            }
+
+                            case 'disabled':
+                            case 'disable':
                             case '0':
                             case 'false':
                             case 'off':
                             case 'no':
                             case 'n': {
 
-                                    return false;
-                                }
+                                return false;
+                            }
                         }
+                        
+                        return (bool) $variable;
+                    }
+                    
+                    if(static::isInt($variable) || static::isFloat($variable)) {
+                        
+                        if($variable > 0) {
+                            
+                            return true;
+                        }
+                        
+                        return false;
                     }
 
                     return null;
+                    
                 }, $allowDeserialization);
     }
 
@@ -576,23 +645,56 @@ class PhpHelper implements IPhpHelper {
         return crc32(join('', $sig));
     }
 
-    public static function getServerRequestUri(): ?string {
+    public static function getServerRequestUri(
+            
+        bool $includeHost = false,
+        bool $includeProtocol = true
+            
+    ): ?string {
 
         if (!static::isWebServer()) {
+            
             return null;
         }
 
-        $uri = (string) filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_DEFAULT);
+        $host = null;
+        $protocol = null;
+        
+        $path = (string) filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_DEFAULT);
 
-        if (static::isEmpty($uri, true)) {
-            $uri = (string) $_SERVER['REQUEST_URI'];
+        if (static::isEmpty($path, true)) {
+            
+            $path = (string) $_SERVER['REQUEST_URI'];
         }
+        
+        if($includeProtocol) {
+        
+            $https = (string) filter_input(INPUT_SERVER, 'HTTPS', FILTER_DEFAULT);
+            
+            if (static::isEmpty($https, true)) {
+                
+                $https = (string) $_SERVER['HTTPS'];
 
-        if (static::isEmpty($uri, true)) {
-            return null;
+            } 
+            
+            $protocol = (string) (static::toBool($https) ? "https" : "http");                        
         }
+        
+        if($includeHost) {
+            
+            $host = (string) filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_DEFAULT);
 
-        return (string) $uri;
+            if (static::isEmpty($host, true)) {
+
+                $host = (string) $_SERVER['HTTP_HOST'];
+            }        
+        }        
+
+        return 
+        
+            (!self::isEmpty($protocol) ? "{$protocol}://" : "") . 
+            (!self::isEmpty($host) ? $host : "") .
+            $path;
     }
 
     public static function getServerDocumentRoot(): ?string {
@@ -946,11 +1048,11 @@ class PhpHelper implements IPhpHelper {
         return static::_cloneObject($obj, 0, $excludeClosures, $levels);
     }
 
-    public static function serialize($something): string {
+    public static function serialize($something = null): string {
 
-        if ($something instanceof Closure || static::isCallable($something)) {
+        if ($something instanceof Closure || static::isCallable($something) || $something === null) {
 
-            return serialize(null);
+            return @serialize(null);
         }
 
         if (static::isObject($something)) {
@@ -988,7 +1090,7 @@ class PhpHelper implements IPhpHelper {
                 }
             }
 
-            $result = serialize($something);
+            $result = @serialize($something);
 
             // restore the nullified properties
 
@@ -1006,7 +1108,29 @@ class PhpHelper implements IPhpHelper {
             return $result;
         }
 
-        return serialize($something);
+        return @serialize($something);
+    }
+    
+    public static function unserialize(string $something, bool $strict = false) {
+        
+        if(!$strict && self::isEmpty($something)) {
+            
+            return null;
+        }        
+        
+        if($something === 'b:0;') {
+            
+            return false;
+        }
+        
+        $tmp = @unserialize($something);
+        
+        if($tmp === false) {
+            
+            throw new PhpHelperException("Could not unserialize: '$something'.");
+        }
+        
+        return $tmp;
     }
 
     public static function getLineAnchor(int $backTraceDepth = 1): string {

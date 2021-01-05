@@ -639,6 +639,42 @@ class PhpHelperTest extends TestCase {
 //        $systemType = PHP::getOperatingSystemType();
 //    }
     
+    
+    public function testSerialize() {
+        
+        $this->assertEquals(serialize('abc'), PHP::serialize('abc'));
+        
+//    public $int = 1;
+//    public $float = 1.111;
+//    public $string = 'STRING';
+//    public $bool = true;
+//    public $object = null;
+    
+        $serialized = PHP::serialize(new ClassG());
+        
+        $deserialized = unserialize($serialized);
+        
+        $this->assertEquals(1, $deserialized->int);
+        $this->assertEquals(1.111, $deserialized->float);
+        $this->assertEquals('STRING', $deserialized->string);
+        $this->assertTrue($deserialized->bool);
+        $this->assertNotNull($deserialized->object);
+        $this->assertNull($deserialized->closure);
+        
+        $closure = PHP::serialize(function() { });        
+        $this->assertNull(unserialize($closure));
+    }
+    
+    public function testUnserialize() {
+        
+        $this->assertNull(PHP::unserialize(PHP::serialize(null)));
+        $this->assertEquals(false, PHP::unserialize(PHP::serialize(false)));
+        $this->assertEquals(true, PHP::unserialize(PHP::serialize(true)));
+        $this->assertEquals(123, PHP::unserialize(PHP::serialize(123)));               
+        $this->assertEquals("string", PHP::unserialize(PHP::serialize("string")));
+        
+    }    
+    
     public function testToArray() {
         
         $this->assertEquals(null, PHP::toArray(null));
@@ -715,21 +751,55 @@ class PhpHelperTest extends TestCase {
     public function testToBool() {
         
         $this->assertEquals(null, PHP::toBool(null));
+        
         $this->assertEquals(true, PHP::toBool(true));
         $this->assertEquals(false, PHP::toBool(false));
-        $this->assertEquals(null, PHP::toBool(''));
-        $this->assertEquals(null, PHP::toBool(0));
-        $this->assertEquals(null, PHP::toBool(0.0));        
-        $this->assertEquals(null, PHP::toBool([]));       
+        
+        
+        $this->assertEquals(false, PHP::toBool(0));
+        $this->assertEquals(false, PHP::toBool(0.0));        
+               
         
         $this->assertEquals(true, PHP::toBool('true'));
+        $this->assertEquals(true, PHP::toBool('enabled'));
+        $this->assertEquals(true, PHP::toBool('enable'));
         $this->assertEquals(true, PHP::toBool('yes'));
-        $this->assertEquals(false, PHP::toBool('no'));
-        $this->assertEquals(false, PHP::toBool('false'));
-        $this->assertEquals(false, PHP::toBool('0'));
-        $this->assertEquals(true, PHP::toBool('1'));
-        $this->assertEquals(null, PHP::toBool('something'));
+        $this->assertEquals(true, PHP::toBool('1'));        
+        $this->assertEquals(true, PHP::toBool('on'));        
+        $this->assertEquals(true, PHP::toBool('y'));  
+        $this->assertEquals(true, PHP::toBool('something'));
         
+        $this->assertEquals(false, PHP::toBool('false'));
+        $this->assertEquals(false, PHP::toBool('disabled'));
+        $this->assertEquals(false, PHP::toBool('disable'));
+        $this->assertEquals(false, PHP::toBool('no'));        
+        $this->assertEquals(false, PHP::toBool('0'));        
+        $this->assertEquals(false, PHP::toBool('off'));        
+        $this->assertEquals(false, PHP::toBool('n'));   
+        $this->assertEquals(false, PHP::toBool(''));
+        
+        
+        $this->assertEquals(null, PHP::toBool([]));
+        $this->assertEquals(true, PHP::toBool([ false ]));
+        $this->assertEquals(true, PHP::toBool([ false, false ]));
+        $this->assertEquals(true, PHP::toBool([ false, false, true ]));
+        $this->assertEquals(true, PHP::toBool([ false, true, true ]));
+        $this->assertEquals(true, PHP::toBool([ true ]));
+        $this->assertEquals(true, PHP::toBool([ true, true ]));
+        $this->assertEquals(true, PHP::toBool([ true, true, false ]));
+        $this->assertEquals(true, PHP::toBool([ true, false, false ]));        
+
+        
+        $this->assertEquals(null, PHP::toBool([], false, true));
+        $this->assertEquals(false, PHP::toBool([ false ], false, true));
+        $this->assertEquals(false, PHP::toBool([ false, false ], false, true));
+        $this->assertEquals(false, PHP::toBool([ false, false, true ], false, true));
+        $this->assertEquals(true, PHP::toBool([ false, true, true ], false, true));
+        $this->assertEquals(true, PHP::toBool([ true ], false, true));
+        $this->assertEquals(true, PHP::toBool([ true, true ], false, true));
+        $this->assertEquals(true, PHP::toBool([ true, true, false ], false, true));
+        $this->assertEquals(false, PHP::toBool([ true, false, false ], false, true));        
+ 
         $this->assertEquals(true, PHP::toBool(serialize(true), true));
         $this->assertEquals(false, PHP::toBool(serialize(false), true));
         $this->assertEquals(true, PHP::toBool(json_encode(true), true));         
@@ -851,31 +921,7 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals(static::SLUG, PHP::strToDashedCase(PHP::strToDashedCase(static::SINGLE_LINE_SENTENCE)));        
         $this->assertEquals(static::SLUG, PHP::strToDashedCase(PHP::strToDashedCase(PHP::strToDashedCase(static::SINGLE_LINE_SENTENCE))));        
     }
-    
-    public function testSerialize() {
-        
-        $this->assertEquals(serialize('abc'), PHP::serialize('abc'));
-        
-//    public $int = 1;
-//    public $float = 1.111;
-//    public $string = 'STRING';
-//    public $bool = true;
-//    public $object = null;
-    
-        $serialized = PHP::serialize(new ClassG());
-        
-        $deserialized = unserialize($serialized);
-        
-        $this->assertEquals(1, $deserialized->int);
-        $this->assertEquals(1.111, $deserialized->float);
-        $this->assertEquals('STRING', $deserialized->string);
-        $this->assertTrue($deserialized->bool);
-        $this->assertNotNull($deserialized->object);
-        $this->assertNull($deserialized->closure);
-        
-        $closure = PHP::serialize(function() { });        
-        $this->assertNull(unserialize($closure));
-    }
+
     
     public function testCloneObject() {
         
