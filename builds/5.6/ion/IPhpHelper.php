@@ -303,15 +303,8 @@ interface IPhpHelper
      * @param bool $includeProtocol Include the protocol.
      * @return ?string Return the value.
      */
-    //TODO: In the next major update, $includeHost's default should be flipped to true.
-    /**
-     * method
-     * 
-     * 
-     * @return ?string
-     */
     
-    static function getServerRequestUri($includeHost = false, $includeProtocol = true);
+    static function getServerRequestUri($includeHost = false, $includeProtocol = false);
     
     /**
      * 
