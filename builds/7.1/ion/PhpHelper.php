@@ -395,18 +395,24 @@ class PhpHelper implements IPhpHelper
      * @return ?array
      */
     
-    public static function toArray($variable, bool $allowDeserialization = false, string $splitCharacterIfString = null) : ?array
+    public static function toArray($variable = null, bool $allowDeserialization = false, string $splitCharacterIfString = null) : ?array
     {
         return static::toScalar($variable, function ($variable) use($splitCharacterIfString, $allowDeserialization) {
+            if ($variable === null) {
+                return null;
+            }
             if (static::isArray($variable)) {
                 return $variable;
             }
             if (static::isString($variable)) {
+                if ($variable === '') {
+                    return [];
+                }
                 if (strpos($variable, $splitCharacterIfString, 0) !== false && $splitCharacterIfString !== null) {
                     return explode($splitCharacterIfString, $variable);
                 }
             }
-            return null;
+            return [$variable];
         }, $allowDeserialization);
     }
     
@@ -420,13 +426,19 @@ class PhpHelper implements IPhpHelper
     public static function toString($variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null) : ?string
     {
         return static::toScalar($variable, function ($variable) use($joinCharacterIfArray, $allowDeserialization) {
+            if ($variable === null) {
+                return null;
+            }
             if (static::isString($variable)) {
                 return $variable;
             }
             if (static::isArray($variable)) {
                 return implode($joinCharacterIfArray === null ? '' : $joinCharacterIfArray, $variable);
             }
-            return null;
+            if (static::isBool($variable)) {
+                return $variable ? '1' : '';
+            }
+            return (string) $variable;
         }, $allowDeserialization);
     }
     
@@ -440,13 +452,19 @@ class PhpHelper implements IPhpHelper
     public static function toFloat($variable = null, bool $allowDeserialization = false) : ?float
     {
         return static::toScalar($variable, function ($variable) use($allowDeserialization) {
+            if ($variable === null) {
+                return null;
+            }
+            if (static::isArray($variable)) {
+                return null;
+            }
             if (static::isFloat($variable)) {
-                return (double) $variable;
+                return $variable;
             }
-            if (static::isString($variable)) {
-                return floatval($variable);
+            if (static::isBool($variable)) {
+                return $variable ? 1.0 : 0.0;
             }
-            return null;
+            return (double) $variable;
         }, $allowDeserialization);
     }
     
@@ -460,19 +478,24 @@ class PhpHelper implements IPhpHelper
     public static function toInt($variable = null, bool $allowDeserialization = false) : ?int
     {
         return static::toScalar($variable, function ($variable) use($allowDeserialization) {
+            if ($variable === null) {
+                return null;
+            }
             if (static::hasDecimals($variable)) {
                 return null;
             }
             if (static::isInt($variable)) {
-                return (int) $variable;
+                return $variable;
+            }
+            if (static::isBool($variable)) {
+                return $variable ? 1 : 0;
             }
             if (static::isString($variable)) {
                 if (static::hasDecimals(static::toFloat($variable, $allowDeserialization))) {
                     return null;
                 }
-                return (int) $variable;
             }
-            return null;
+            return (int) $variable;
         }, $allowDeserialization);
     }
     

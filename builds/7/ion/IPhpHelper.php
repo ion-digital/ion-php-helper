@@ -98,7 +98,7 @@ interface IPhpHelper
     
     static function isNumeric(/* mixed */ $variable = null): bool;
     
-    static function toArray(/* mixed */ $variable, bool $allowDeserialization = false, string $splitCharacterIfString = null): ?array;
+    static function toArray(/* mixed */ $variable = null, bool $allowDeserialization = false, string $splitCharacterIfString = null): ?array;
     
     static function toString(/* mixed */ $variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null): ?string;
     

@@ -330,89 +330,132 @@ class PhpHelper implements IPhpHelper {
         return null;
     }
 
-    public static function toArray(/* mixed */ $variable, bool $allowDeserialization = false, string $splitCharacterIfString = null): ?array {
+    public static function toArray(/* mixed */ $variable = null, bool $allowDeserialization = false, string $splitCharacterIfString = null): ?array {
 
         return static::toScalar($variable, function($variable) use ($splitCharacterIfString, $allowDeserialization) {
+                                
+            if($variable === null) {
 
-                    if (static::isArray($variable)) {
+                return null;
+            }
 
-                        return $variable;
-                    }
+            if (static::isArray($variable)) {
 
-                    if (static::isString($variable)) {
+                return $variable;
+            }
 
-                        if (strpos($variable, $splitCharacterIfString, 0) !== false && $splitCharacterIfString !== null) {
+            if (static::isString($variable)) {
 
-                            return explode($splitCharacterIfString, $variable);
-                        }
-                    }
+                if($variable === '') {
+                    
+                    return [];
+                }
+                
+                if (strpos($variable, $splitCharacterIfString, 0) !== false && $splitCharacterIfString !== null) {
 
-                    return null;
-                }, $allowDeserialization);
+                    return explode($splitCharacterIfString, $variable);
+                }
+            }
+
+            return [ $variable ];
+
+        }, $allowDeserialization);
     }
 
     public static function toString(/* mixed */ $variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null): ?string {
 
         return static::toScalar($variable, function($variable) use ($joinCharacterIfArray, $allowDeserialization) {
 
-                    if (static::isString($variable)) {
+            if($variable === null) {
 
-                        return $variable;
-                    }
+                return null;
+            }
 
-                    if (static::isArray($variable)) {
+            if (static::isString($variable)) {
 
-                        return implode(($joinCharacterIfArray === null ? '' : $joinCharacterIfArray), $variable);
-                    }
+                return $variable;
+            }
 
-                    return null;
-                }, $allowDeserialization);
+            if (static::isArray($variable)) {
+
+                return implode(($joinCharacterIfArray === null ? '' : $joinCharacterIfArray), $variable);
+            }
+
+            if(static::isBool($variable)) {
+                
+                return ($variable ? '1' : '' );
+            }
+            
+            return (string) $variable;
+
+        }, $allowDeserialization);
     }
 
     public static function toFloat(/* mixed */ $variable = null, bool $allowDeserialization = false): ?float {
 
         return static::toScalar($variable, function($variable) use ($allowDeserialization) {
+            
+            if($variable === null) {
 
-                    if (static::isFloat($variable)) {
+                return null;
+            }
+            
+            if (static::isArray($variable)) {
 
-                        return (float) $variable;
-                    }
+                return null;
+            }            
 
-                    if (static::isString($variable)) {
+            if (static::isFloat($variable)) {
 
-                        return floatval($variable);
-                    }
+                return $variable;
+            }
+            
+            if (static::isBool($variable)) {
+                
+                return ($variable ? 1.0 : 0.0);
+            }
 
-                    return null;
-                }, $allowDeserialization);
+            return (float) $variable;
+
+        }, $allowDeserialization);
     }
 
     public static function toInt(/* mixed */ $variable = null, bool $allowDeserialization = false): ?int {
 
         return static::toScalar($variable, function($variable) use ($allowDeserialization) {
+            
+            if($variable === null) {
 
-                    if (static::hasDecimals($variable)) {
+                return null;
+            }
 
-                        return null;
-                    }
+            if (static::hasDecimals($variable)) {
 
-                    if (static::isInt($variable)) {
+                return null;
+            }
 
-                        return (int) $variable;
-                    }
+            if (static::isInt($variable)) {
 
-                    if (static::isString($variable)) {
+                return $variable;
+            }
+            
+            if (static::isBool($variable)) {
+                
+                return ($variable ? 1 : 0);
+            }
 
-                        if (static::hasDecimals(static::toFloat($variable, $allowDeserialization))) {
+            if (static::isString($variable)) {
 
-                            return null;
-                        }
-
-                        return (int) $variable;
-                    }
+                if (static::hasDecimals(static::toFloat($variable, $allowDeserialization))) {
 
                     return null;
-                }, $allowDeserialization);
+                }
+
+            }
+
+            return (int) $variable;
+
+        }, $allowDeserialization);
     }
 
     public static function toBool(/* mixed */ $variable = null, bool $allowDeserialization = false, bool $checkElementsIfArray = false): ?bool {

@@ -180,7 +180,7 @@ interface IPhpHelper
      * @return ?array
      */
     
-    static function toArray($variable, bool $allowDeserialization = false, string $splitCharacterIfString = null) : ?array;
+    static function toArray($variable = null, bool $allowDeserialization = false, string $splitCharacterIfString = null) : ?array;
     
     /**
      * method
