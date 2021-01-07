@@ -1181,7 +1181,10 @@ class PhpHelper implements IPhpHelper
         }
         $tmp = @unserialize($something);
         if ($tmp === false) {
-            throw new PhpHelperException("Could not unserialize: '{$something}'.");
+            if (PHP_MAJOR_VERSION >= 7) {
+                error_clear_last();
+            }
+            throw new PhpHelperException("Could not unserialize string ('{$something}').");
         }
         return $tmp;
     }
