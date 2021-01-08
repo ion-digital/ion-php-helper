@@ -1189,7 +1189,7 @@ class PhpHelper implements IPhpHelper {
                 error_clear_last();
             }
             
-            throw new PhpHelperException("{$errorLast['type']} error while unserializing '$something': {$errorLast['message']} ($errorLast['file'], line {$errorLast['line']}).");
+            throw new PhpHelperException("{$errorLast['type']} error while unserializing '{$something}': {$errorLast['message']} ({$errorLast['file']}, line {$errorLast['line']}).");
         }
         
         return $tmp;

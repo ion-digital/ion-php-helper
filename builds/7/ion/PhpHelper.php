@@ -1182,12 +1182,14 @@ class PhpHelper implements IPhpHelper {
         
         if($tmp === false) {
             
+            $errorLast = error_get_last();
+            
             if(PHP_MAJOR_VERSION >= 7) {
                 
                 error_clear_last();
             }
             
-            throw new PhpHelperException("Could not unserialize string ('$something').");
+            throw new PhpHelperException("{$errorLast['type']} error while unserializing '{$something}': {$errorLast['message']} ({$errorLast['file']}, line {$errorLast['line']}).");
         }
         
         return $tmp;
