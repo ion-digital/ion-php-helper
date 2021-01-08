@@ -740,6 +740,9 @@ class PhpHelper implements IPhpHelper
         if (!self::isEmpty($tmp)) {
             return $tmp;
         }
+        if (!array_key_exists('HTTP_REFERER', $_SERVER)) {
+            return null;
+        }
         return self::toString($_SERVER['HTTP_REFERER']);
     }
     

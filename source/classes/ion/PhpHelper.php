@@ -749,6 +749,11 @@ class PhpHelper implements IPhpHelper {
             return $tmp;
         }
             
+        if(!array_key_exists('HTTP_REFERER', $_SERVER)) {
+            
+            return null;
+        }
+        
         return self::toString($_SERVER['HTTP_REFERER']);
     }
 
