@@ -1005,7 +1005,7 @@ class PhpHelper implements IPhpHelper {
         return static::strReplaceAll(["\n", "\r", "\t", "  "], $replaceWith, $subject);
     }
 
-    public static function strToDashedCase(string $subject): string {
+    public static function strToDashedCase(string $subject, string $dash = '-'): string {
 
         $tmp = '';
 
@@ -1021,7 +1021,7 @@ class PhpHelper implements IPhpHelper {
                 if (ctype_upper($character) === true) {
 
                     if (($dashCount === 0) && ($upperCaseCount === 0) && ($index !== 0)) {
-                        $tmp = $tmp . '-';
+                        $tmp .= $dash;
                         $dashCount++;
                     }
 
@@ -1040,7 +1040,7 @@ class PhpHelper implements IPhpHelper {
                 if (($index > 0) && ($index < count($characters) - 1)) {
 
                     if ($dashCount === 0) {
-                        $tmp = $tmp . "-";
+                        $tmp .= $dash;
                     }
 
                     $dashCount++;
@@ -1049,8 +1049,8 @@ class PhpHelper implements IPhpHelper {
         }
 
         // strip extra slashes
-        $tmp = preg_replace("/^(-+)/", '', $tmp);
-        $tmp = preg_replace("/(-+)$/", '', $tmp);
+        $tmp = preg_replace("/^({$dash}+)/", '', $tmp);
+        $tmp = preg_replace("/({$dash}+)$/", '', $tmp);
 
         return $tmp;
     }

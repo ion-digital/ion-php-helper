@@ -381,11 +381,12 @@ interface IPhpHelper
     * Convert a string to dashed case.
     * 
     * @param $subject The string to modify.
+    * @param $dash The string to use as the dash.
     * 
     * @return string The resulting string.
     */
    
-   static function strToDashedCase(string $subject): string;
+   static function strToDashedCase(string $subject, string $dash = '-'): string;
    
    /**
     * 
