@@ -715,14 +715,14 @@ class PhpHelper implements IPhpHelper
         if ($includeProtocol) {
             $https = (string) filter_input(INPUT_SERVER, 'HTTPS', FILTER_DEFAULT);
             if (static::isEmpty($https, true)) {
-                $https = (string) $_SERVER['HTTPS'];
+                $https = array_key_exists('HTTPS', $_SERVER) ? (string) $_SERVER['HTTPS'] : null;
             }
             $protocol = (string) (static::toBool($https) ? "https" : "http");
         }
         if ($includeHost) {
             $host = (string) filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_DEFAULT);
             if (static::isEmpty($host, true)) {
-                $host = (string) $_SERVER['HTTP_HOST'];
+                $host = array_key_exists('HTTP_HOST', $_SERVER) ? (string) $_SERVER['HTTP_HOST'] : null;
             }
         }
         return (!self::isEmpty($protocol) ? "{$protocol}://" : "") . (!self::isEmpty($host) ? $host : "") . $path;

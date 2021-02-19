@@ -716,7 +716,7 @@ class PhpHelper implements IPhpHelper {
             
             if (static::isEmpty($https, true)) {
                 
-                $https = (string) $_SERVER['HTTPS'];
+                $https = (array_key_exists('HTTPS', $_SERVER) ? (string) $_SERVER['HTTPS'] : null);
 
             } 
             
@@ -729,7 +729,7 @@ class PhpHelper implements IPhpHelper {
 
             if (static::isEmpty($host, true)) {
 
-                $host = (string) $_SERVER['HTTP_HOST'];
+                $host = (array_key_exists('HTTP_HOST', $_SERVER) ? (string) $_SERVER['HTTP_HOST'] : null);
             }        
         }        
 
