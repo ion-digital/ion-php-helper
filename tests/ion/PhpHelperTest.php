@@ -125,8 +125,8 @@ class CallingClass {
 
 class PhpHelperTest extends TestCase {
     
-    const SLUG = 'the-quick-brown-fox-jumps-over-the-lazy-dog-1-2-3';
-    const SINGLE_LINE_SENTENCE = 'The quick brown fox, jumps over the lazy dog 1 2 3.';    
+    const SLUG = 'the-quick-brown-fox-jumps-over-the-lazy-dog-1-2-3-something-camel-404';
+    const SINGLE_LINE_SENTENCE = 'The quick brown fox, jumps over the lazy dog 1 2 3.SomethingCamel404';    
     
     public function testIsAssociativeArray() {
         

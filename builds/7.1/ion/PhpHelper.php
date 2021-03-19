@@ -1043,7 +1043,7 @@ class PhpHelper implements IPhpHelper
         $dashCount = 0;
         foreach ($characters as $index => $character) {
             if (ctype_alnum($character) === true) {
-                if (ctype_upper($character) === true) {
+                if (ctype_upper($character) === true || ctype_digit($character) === true) {
                     if ($dashCount === 0 && $upperCaseCount === 0 && $index !== 0) {
                         $tmp .= $dash;
                         $dashCount++;

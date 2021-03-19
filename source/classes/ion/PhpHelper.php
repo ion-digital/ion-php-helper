@@ -1018,7 +1018,7 @@ class PhpHelper implements IPhpHelper {
 
             if (ctype_alnum($character) === true) {
 
-                if (ctype_upper($character) === true) {
+                if (ctype_upper($character) === true || ctype_digit($character) === true) {
 
                     if (($dashCount === 0) && ($upperCaseCount === 0) && ($index !== 0)) {
                         $tmp .= $dash;
@@ -1028,7 +1028,9 @@ class PhpHelper implements IPhpHelper {
                     $tmp = $tmp . strtolower($character);
 
                     $upperCaseCount++;
+                    
                 } else {
+                    
                     $tmp = $tmp . $character;
 
                     $upperCaseCount = 0;
@@ -1040,6 +1042,7 @@ class PhpHelper implements IPhpHelper {
                 if (($index > 0) && ($index < count($characters) - 1)) {
 
                     if ($dashCount === 0) {
+                        
                         $tmp .= $dash;
                     }
 
