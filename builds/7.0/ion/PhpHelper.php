@@ -22,7 +22,6 @@ use Error;
 use Countable;
 use Serializable;
 use Closure;
-
 class PhpHelper implements IPhpHelper
 {
     /**
@@ -31,7 +30,6 @@ class PhpHelper implements IPhpHelper
      * 
      * @return bool
      */
-    
     public static function isAssociativeArray(array $array) : bool
     {
         if (!is_array($array)) {
@@ -43,14 +41,12 @@ class PhpHelper implements IPhpHelper
         return (bool) (array_keys($array) !== range(0, count($array) - 1));
         //return (bool) (array_keys($array) !== array_values($array));
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isEmpty($value, bool $orWhiteSpaceIfString = true, bool $orEmptyIfArray = true) : bool
     {
         if (static::isArray($value) && count($value) === 0 && $orEmptyIfArray) {
@@ -64,26 +60,22 @@ class PhpHelper implements IPhpHelper
         }
         return (bool) empty($value);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function inherits(string $childClassName, string $parentClassName) : bool
     {
         return is_subclass_of($childClassName, $parentClassName, true);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isObject($variable, string $className = null, bool $parent = true, bool $class = true) : bool
     {
         if (!is_object($variable)) {
@@ -100,14 +92,12 @@ class PhpHelper implements IPhpHelper
         }
         return true;
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isArray($variable, bool $isAssociative = true) : bool
     {
         if (!is_array($variable)) {
@@ -118,14 +108,12 @@ class PhpHelper implements IPhpHelper
         }
         return true;
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isString($variable = null) : bool
     {
         if ($variable === null) {
@@ -133,14 +121,12 @@ class PhpHelper implements IPhpHelper
         }
         return is_string($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isReal($variable = null) : bool
     {
         if ($variable === null) {
@@ -148,50 +134,42 @@ class PhpHelper implements IPhpHelper
         }
         return static::isFloat($variable) || static::isDouble($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isFloat($variable = null) : bool
     {
         return is_float($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isDouble($variable = null) : bool
     {
         return is_double($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isNumeric($variable = null) : bool
     {
         return static::isInt($variable) || static::isReal($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function hasDecimals($variable = null) : bool
     {
         if (!static::isReal($variable)) {
@@ -205,14 +183,12 @@ class PhpHelper implements IPhpHelper
         }
         return false;
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isInt($variable = null) : bool
     {
         if ($variable === null) {
@@ -220,14 +196,12 @@ class PhpHelper implements IPhpHelper
         }
         return is_int($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isBool($variable = null) : bool
     {
         if ($variable === null) {
@@ -235,38 +209,32 @@ class PhpHelper implements IPhpHelper
         }
         return is_bool($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isNull($variable = null) : bool
     {
         return $variable === null;
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isCallable($variable = null) : bool
     {
         return is_callable($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isType(string $typeString, $variable = null) : bool
     {
         switch (strtolower(trim($typeString))) {
@@ -289,7 +257,6 @@ class PhpHelper implements IPhpHelper
         }
         return static::isObject($variable, $typeString, true, true);
     }
-    
     //    public static function suppress(callable $closure, bool $includeExceptions = false, bool $convertToExceptions = true, int $errorLevel = 0) {
     //
     //        $prevErrorLevel = error_reporting();
@@ -363,7 +330,6 @@ class PhpHelper implements IPhpHelper
      * 
      * @return mixed
      */
-    
     private static function toScalar($variable, callable $callBack, bool $allowDeserialization = false)
     {
         if (static::isObject($variable)) {
@@ -387,14 +353,12 @@ class PhpHelper implements IPhpHelper
         }
         return null;
     }
-    
     /**
      * method
      * 
      * 
      * @return ?array
      */
-    
     public static function toArray($variable = null, bool $allowDeserialization = false, string $splitCharacterIfString = null)
     {
         return static::toScalar($variable, function ($variable) use($splitCharacterIfString, $allowDeserialization) {
@@ -415,14 +379,12 @@ class PhpHelper implements IPhpHelper
             return [$variable];
         }, $allowDeserialization);
     }
-    
     /**
      * method
      * 
      * 
      * @return ?string
      */
-    
     public static function toString($variable = null, bool $allowDeserialization = false, string $joinCharacterIfArray = null)
     {
         return static::toScalar($variable, function ($variable) use($joinCharacterIfArray, $allowDeserialization) {
@@ -441,14 +403,12 @@ class PhpHelper implements IPhpHelper
             return (string) $variable;
         }, $allowDeserialization);
     }
-    
     /**
      * method
      * 
      * 
      * @return ?float
      */
-    
     public static function toFloat($variable = null, bool $allowDeserialization = false)
     {
         return static::toScalar($variable, function ($variable) use($allowDeserialization) {
@@ -467,14 +427,12 @@ class PhpHelper implements IPhpHelper
             return (double) $variable;
         }, $allowDeserialization);
     }
-    
     /**
      * method
      * 
      * 
      * @return ?int
      */
-    
     public static function toInt($variable = null, bool $allowDeserialization = false)
     {
         return static::toScalar($variable, function ($variable) use($allowDeserialization) {
@@ -498,14 +456,12 @@ class PhpHelper implements IPhpHelper
             return (int) $variable;
         }, $allowDeserialization);
     }
-    
     /**
      * method
      * 
      * 
      * @return ?bool
      */
-    
     public static function toBool($variable = null, bool $allowDeserialization = false, bool $checkElementsIfArray = false)
     {
         return static::toScalar($variable, function ($variable) use($allowDeserialization, $checkElementsIfArray) {
@@ -572,14 +528,12 @@ class PhpHelper implements IPhpHelper
             return null;
         }, $allowDeserialization);
     }
-    
     /**
      * method
      * 
      * 
      * @return array
      */
-    
     public static function getObjectProperties($object, bool $public = true, bool $protected = false, bool $private = false) : array
     {
         $reflector = new ReflectionObject($object);
@@ -590,14 +544,12 @@ class PhpHelper implements IPhpHelper
         }
         return $result;
     }
-    
     /**
      * method
      * 
      * 
      * @return array
      */
-    
     public static function getObjectPropertyValues($object, bool $public = true, bool $protected = false, bool $private = false) : array
     {
         $properties = static::getObjectProperties($object, $public, $protected, $private);
@@ -610,14 +562,12 @@ class PhpHelper implements IPhpHelper
         }
         return $result;
     }
-    
     /**
      * method
      * 
      * 
      * @return array
      */
-    
     public static function getObjectMethods($object, bool $public = true, bool $protected = false, bool $private = false, bool $abstract = true, bool $final = true) : array
     {
         $reflector = new ReflectionObject($object);
@@ -628,14 +578,12 @@ class PhpHelper implements IPhpHelper
         }
         return $result;
     }
-    
     /**
      * method
      * 
      * 
      * @return int
      */
-    
     public static function getArrayHash(array $array) : int
     {
         $sig = [(string) count($array)];
@@ -661,14 +609,12 @@ class PhpHelper implements IPhpHelper
         }
         return crc32(join('', $sig));
     }
-    
     /**
      * method
      * 
      * 
      * @return int
      */
-    
     public static function getObjectHash($object) : int
     {
         $sig = [get_class($object)];
@@ -693,14 +639,12 @@ class PhpHelper implements IPhpHelper
         }
         return crc32(join('', $sig));
     }
-    
     /**
      * method
      * 
      * 
      * @return ?string
      */
-    
     public static function getServerRequestUri(bool $includeHost = false, bool $includeProtocol = true)
     {
         if (!static::isWebServer()) {
@@ -727,13 +671,11 @@ class PhpHelper implements IPhpHelper
         }
         return (!self::isEmpty($protocol) ? "{$protocol}://" : "") . (!self::isEmpty($host) ? $host : "") . $path;
     }
-    
     /**
      * method
      * 
      * @return ?string
      */
-    
     public static function getServerReferrerUri()
     {
         $tmp = self::toString(self::filterInput('HTTP_REFERER', [INPUT_SERVER], FILTER_DEFAULT));
@@ -745,13 +687,11 @@ class PhpHelper implements IPhpHelper
         }
         return self::toString($_SERVER['HTTP_REFERER']);
     }
-    
     /**
      * method
      * 
      * @return ?string
      */
-    
     public static function getServerDocumentRoot()
     {
         if (!static::isWebServer()) {
@@ -766,13 +706,11 @@ class PhpHelper implements IPhpHelper
         }
         return (string) $uri . DIRECTORY_SEPARATOR;
     }
-    
     /**
      * method
      * 
      * @return bool
      */
-    
     public static function isCommandLine() : bool
     {
         if (php_sapi_name() === 'cli') {
@@ -780,25 +718,21 @@ class PhpHelper implements IPhpHelper
         }
         return false;
     }
-    
     /**
      * method
      * 
      * @return bool
      */
-    
     public static function isWebServer() : bool
     {
         return !static::isCommandLine();
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function isCountable($variable) : bool
     {
         if (PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 3) {
@@ -809,14 +743,12 @@ class PhpHelper implements IPhpHelper
         }
         return static::isArray($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return mixed
      */
-    
     public static function toNull($variable, bool $orWhiteSpaceIfString = true, bool $orEmptyIfArray = true)
     {
         if (!static::isEmpty($variable, $orWhiteSpaceIfString, $orEmptyIfArray)) {
@@ -824,7 +756,6 @@ class PhpHelper implements IPhpHelper
         }
         return null;
     }
-    
     //TODO: Read https://stackoverflow.com/questions/25232975/php-filter-inputinput-server-request-method-returns-null and evaluate this method.
     /**
      * method
@@ -832,7 +763,6 @@ class PhpHelper implements IPhpHelper
      * 
      * @return mixed
      */
-    
     public static function filterInput(string $variableName, array $inputs = [], int $filter = null, array $options = [])
     {
         if ($inputs === []) {
@@ -872,28 +802,24 @@ class PhpHelper implements IPhpHelper
         }
         return null;
     }
-    
     /**
      * method
      * 
      * 
      * @return ?string
      */
-    
     public static function obGet(callable $closure, ...$parameters)
     {
         ob_start();
         call_user_func_array($closure, $parameters);
         return static::toNull((string) ob_get_clean(), false, true);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function strEndsWith(string $string, string $subString) : bool
     {
         if (!static::strContains($string, $subString)) {
@@ -904,14 +830,12 @@ class PhpHelper implements IPhpHelper
         }
         return false;
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function strStartsWith(string $string, string $subString) : bool
     {
         if (!static::strContains($string, $subString)) {
@@ -922,14 +846,12 @@ class PhpHelper implements IPhpHelper
         }
         return false;
     }
-    
     /**
      * method
      * 
      * 
      * @return ?int
      */
-    
     public static function count($variable)
     {
         if (!static::isArray($variable) && !static::isCountable($variable)) {
@@ -937,14 +859,12 @@ class PhpHelper implements IPhpHelper
         }
         return count($variable);
     }
-    
     /**
      * method
      * 
      * 
      * @return bool
      */
-    
     public static function strContains(string $string, string $subString, int $position = null) : bool
     {
         if (strpos($string, $subString) === false) {
@@ -958,13 +878,11 @@ class PhpHelper implements IPhpHelper
         }
         return strpos($string, $subString) !== false;
     }
-    
     /**
      * method
      * 
      * @return string
      */
-    
     public static function getCallingPath() : string
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
@@ -973,13 +891,11 @@ class PhpHelper implements IPhpHelper
         }
         return realpath($trace[count($trace) - 1]['file']);
     }
-    
     /**
      * method
      * 
      * @return string
      */
-    
     public static function getCallingClass() : string
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
@@ -988,14 +904,12 @@ class PhpHelper implements IPhpHelper
         }
         return $trace[count($trace) - 1]['class'];
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function strReplaceAll(array $strings, string $replacement, string $subject, bool $ignoreCase = false, int &$count = null) : string
     {
         if ($count !== null) {
@@ -1012,14 +926,12 @@ class PhpHelper implements IPhpHelper
         }
         return $subject;
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function strStripWhiteSpace(string $subject, string $replaceWith = ' ') : string
     {
         if ($replaceWith !== ' ') {
@@ -1027,14 +939,12 @@ class PhpHelper implements IPhpHelper
         }
         return static::strReplaceAll(["\n", "\r", "\t", "  "], $replaceWith, $subject);
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function strToDashedCase(string $subject, string $dash = '-') : string
     {
         $tmp = '';
@@ -1069,14 +979,12 @@ class PhpHelper implements IPhpHelper
         $tmp = preg_replace("/({$dash}+)\$/", '', $tmp);
         return $tmp;
     }
-    
     /**
      * method
      * 
      * 
      * @return ?object
      */
-    
     private static function _cloneObject($obj, int $currentLevel, bool $excludeClosures, int $levels = null)
     {
         if ($obj instanceof Throwable) {
@@ -1108,26 +1016,22 @@ class PhpHelper implements IPhpHelper
         }
         return $newObj;
     }
-    
     /**
      * method
      * 
      * 
      * @return ?object
      */
-    
     public static function optimisticClone($obj, bool $excludeClosures = true, int $levels = null)
     {
         return static::_cloneObject($obj, 0, $excludeClosures, $levels);
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function serialize($something = null) : string
     {
         if ($something instanceof Closure || static::isCallable($something) || $something === null) {
@@ -1166,14 +1070,12 @@ class PhpHelper implements IPhpHelper
         }
         return @serialize($something);
     }
-    
     /**
      * method
      * 
      * 
      * @return mixed
      */
-    
     public static function unserialize(string $something, bool $strict = false)
     {
         if (!$strict && self::isEmpty($something)) {
@@ -1192,27 +1094,23 @@ class PhpHelper implements IPhpHelper
         }
         return $tmp;
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function getLineAnchor(int $backTraceDepth = 1) : string
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, $backTraceDepth)[0];
         return md5($trace['file'] . $trace['line']);
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function base64Encode(string $string, bool $urlSafe = false) : string
     {
         $data = base64_encode($string);
@@ -1221,14 +1119,12 @@ class PhpHelper implements IPhpHelper
         }
         return $data;
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function base64Decode(string $string, bool $urlSafe = false) : string
     {
         $data = $string;
@@ -1241,14 +1137,12 @@ class PhpHelper implements IPhpHelper
         }
         return base64_decode($data);
     }
-    
     /**
      * method
      * 
      * 
      * @return string
      */
-    
     public static function randomBytes(int $length) : string
     {
         if (function_exists('random_bytes')) {
@@ -1260,5 +1154,4 @@ class PhpHelper implements IPhpHelper
         }
         return $ret;
     }
-
 }

@@ -7,7 +7,6 @@
  */
 namespace ion;
 
-
 interface IPhpHelperException
 {
 }

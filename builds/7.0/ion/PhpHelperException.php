@@ -6,7 +6,6 @@ namespace ion;
 
 use Exception;
 use Throwable;
-
 class PhpHelperException extends Exception implements IPhpHelperException
 {
     /**
@@ -15,10 +14,8 @@ class PhpHelperException extends Exception implements IPhpHelperException
      * 
      * @return mixed
      */
-    
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
-
 }
