@@ -7,8 +7,10 @@ namespace ion;
 use Exception;
 use Throwable;
 
-interface PhpHelperExceptionInterface extends ExceptionInterface
-{
-    function __construct(string $message = "", int $code = 0, Throwable $previous = null);
 
+
+interface PhpHelperExceptionInterface {
+
+
+    function __construct(string $message = "", int $code = 0, Throwable $previous = null);
 }

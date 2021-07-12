@@ -22,13 +22,16 @@ use Error;
 use Countable;
 use Serializable;
 use Closure;
-class PhpHelper implements IPhpHelper
+class PhpHelper implements PhpHelperInterface
 {
     /**
-     * method
+     * Checks to see if an array is an associative array or not.
+     *
+     * @since 0.0.1
      * 
-     * 
-     * @return bool
+     * @param array $array The array to check.
+     * @return bool Returns __true__ if the array is an associative array, __false__ if not.
+     *
      */
     public static function isAssociativeArray(array $array) : bool
     {
@@ -42,10 +45,15 @@ class PhpHelper implements IPhpHelper
         //return (bool) (array_keys($array) !== array_values($array));
     }
     /**
-     * method
+     * Checks to see if a value is empty or not - additionally includes special handling for strings.
+     *
+     * @since 0.0.2
      * 
-     * 
-     * @return bool
+     * @param mixed $variable The variable to check.
+     * @param bool $orWhiteSpaceIfString Return __true__ if _$value_ is a string and is empty or consists out of white-space.
+     * @param bool $orEmptyIfArray Return __true__ if $value is an empty array.
+     * @return bool Returns __true__ if the variable is empty, __false__ if not.
+     *
      */
     public static function isEmpty($value, bool $orWhiteSpaceIfString = true, bool $orEmptyIfArray = true) : bool
     {
@@ -61,20 +69,30 @@ class PhpHelper implements IPhpHelper
         return (bool) empty($value);
     }
     /**
-     * method
+     * Checks to see if a class inherits another class.
+     *
+     * @since 0.0.9
      * 
-     * 
-     * @return bool
+     * @param string $childClassName The name of the class to be checked.
+     * @param string $parentClassName The name of the class to validate as a parent.
+     * @return bool Returns __true__ if the child class inherits the parent class, __false__ if not.
+     *
      */
     public static function inherits(string $childClassName, string $parentClassName) : bool
     {
         return is_subclass_of($childClassName, $parentClassName, true);
     }
     /**
-     * method
+     * Checks to see if a variable is an object, or an object of a certain type.
+     *
+     * @since 0.0.9
      * 
-     * 
-     * @return bool
+     * @param mixed $variable The variable that needs to be checked.
+     * @param string $className The name of the class to validate.
+     * @param bool $parent If set to __true__, will validate if class to validate is a parent class - otherwise it will check if $variable is of type $className.
+     * @param bool $class If set to __true__ and $parent is set to __true__, the specified class will be included in the check.
+     * @return bool Returns __true__ if the variable is an object and if child class inherits the parent class (if $parentClassName is specified), __false__ if not.
+     *
      */
     public static function isObject($variable, string $className = null, bool $parent = true, bool $class = true) : bool
     {
@@ -93,10 +111,14 @@ class PhpHelper implements IPhpHelper
         return true;
     }
     /**
-     * method
+     * Checks to see if a variable is an array - and additionally will filter for either associative or flat arrays, both or neither.
+     *
+     * @since 0.3.4
      * 
-     * 
-     * @return bool
+     * @param mixed $variable The variable to check.
+     * @param bool $isAssociative Include associative arrays in the result.
+     * @return bool Returns __true__ if the array is an array that matches the parameters, __false__ if not.
+     *
      */
     public static function isArray($variable, bool $isAssociative = true) : bool
     {
@@ -341,7 +363,11 @@ class PhpHelper implements IPhpHelper
                 return self::toScalar($tmp, $callBack, false);
             }
             try {
-                return self::toScalar(self::unserialize($variable, true), $callBack, false);
+                $tmp = self::unserialize($variable, true);
+                if ($tmp === null) {
+                    return $callBack($variable);
+                }
+                return self::toScalar($tmp, $callBack, false);
             } catch (PhpHelperException $exception) {
                 return self::toScalar($variable, $callBack, false);
             }
@@ -529,10 +555,17 @@ class PhpHelper implements IPhpHelper
         }, $allowDeserialization);
     }
     /**
-     * method
      * 
+     * Return the non-static properties of an instantiated object.
      * 
-     * @return array
+     * @since 0.2.2
+     * 
+     * @param object $object The object for which to return the properties of.
+     * @param bool $public Return public properties.
+     * @param bool $protected Return protected properties.
+     * @param bool $private Return private properties.
+     * 
+     * @return array Return the properties and their values as an associative array.
      */
     public static function getObjectProperties($object, bool $public = true, bool $protected = false, bool $private = false) : array
     {
@@ -545,10 +578,15 @@ class PhpHelper implements IPhpHelper
         return $result;
     }
     /**
-     * method
      * 
+     * Return the non-static property names and values of an instantiated object.
      * 
-     * @return array
+     * @param object $object The object for which to return the properties of.
+     * @param bool $public Return public properties.
+     * @param bool $protected Return protected properties.
+     * @param bool $private Return private properties.
+     * 
+     * @return array Return the properties and their values as an  associative array.
      */
     public static function getObjectPropertyValues($object, bool $public = true, bool $protected = false, bool $private = false) : array
     {
@@ -563,10 +601,19 @@ class PhpHelper implements IPhpHelper
         return $result;
     }
     /**
-     * method
      * 
+     * Return the non-static methods of an instantiated object.
      * 
-     * @return array
+     * @since 0.2.2
+     * 
+     * @param object $object The object for which to return the methods of.
+     * @param bool $public Return public methods.
+     * @param bool $protected Return protected methods.
+     * @param bool $private Return private methods.
+     * @param bool $abstract Return private methods.
+     * @param bool $final Return private methods.
+     * 
+     * @return array Return the methods and their callables as an  associative array.
      */
     public static function getObjectMethods($object, bool $public = true, bool $protected = false, bool $private = false, bool $abstract = true, bool $final = true) : array
     {
@@ -579,10 +626,12 @@ class PhpHelper implements IPhpHelper
         return $result;
     }
     /**
-     * method
      * 
+     * Return a unique hash that represents the properties of this object.
      * 
-     * @return int
+     * @param array $array The array for which to return the hash for.
+     * 
+     * @return int Return the hash as an int.
      */
     public static function getArrayHash(array $array) : int
     {
@@ -610,10 +659,12 @@ class PhpHelper implements IPhpHelper
         return crc32(join('', $sig));
     }
     /**
-     * method
      * 
+     * Return a unique hash that represents the properties of this object.
      * 
-     * @return int
+     * @param object $object The object for which to return the hash for.
+     * 
+     * @return int Return the hash as an int.
      */
     public static function getObjectHash($object) : int
     {
@@ -640,10 +691,12 @@ class PhpHelper implements IPhpHelper
         return crc32(join('', $sig));
     }
     /**
-     * method
+     * Returns the value of the $_SERVER['REQUEST_URI'] variable.
      * 
+     * @param bool $includeHost Include the host.
+     * @param bool $includeProtocol Include the protocol.
+     * @return ?string Return the value.
      * 
-     * @return ?string
      */
     public static function getServerRequestUri(bool $includeHost = false, bool $includeProtocol = true) : ?string
     {
@@ -672,9 +725,10 @@ class PhpHelper implements IPhpHelper
         return (!self::isEmpty($protocol) ? "{$protocol}://" : "") . (!self::isEmpty($host) ? $host : "") . $path;
     }
     /**
-     * method
      * 
-     * @return ?string
+     * Returns the value of the $_SERVER['HTTP_REFERER'] variable.
+     * 
+     * @return string|null
      */
     public static function getServerReferrerUri() : ?string
     {
@@ -688,9 +742,9 @@ class PhpHelper implements IPhpHelper
         return self::toString($_SERVER['HTTP_REFERER']);
     }
     /**
-     * method
+     * Returns the value of the $_SERVER['DOCUMENT_ROOT'] variable.
      * 
-     * @return ?string
+     * @return ?string Return the value.
      */
     public static function getServerDocumentRoot() : ?string
     {
@@ -707,9 +761,9 @@ class PhpHelper implements IPhpHelper
         return (string) $uri . DIRECTORY_SEPARATOR;
     }
     /**
-     * method
+     * Return whether the current script is running in a command-line context, or somewhere else (like a web server).
      * 
-     * @return bool
+     * @return bool Returns __true__ if we are running as a command-line script - __false__ otherwise. 
      */
     public static function isCommandLine() : bool
     {
@@ -719,19 +773,18 @@ class PhpHelper implements IPhpHelper
         return false;
     }
     /**
-     * method
+     * Return whether the current script is running in a Web context, or somewhere else (like the command-line).
      * 
-     * @return bool
+     * @return bool Returns __true__ if we are running as a Web script - __false__ otherwise. 
      */
     public static function isWebServer() : bool
     {
         return !static::isCommandLine();
     }
     /**
-     * method
+     * Return whether a variable is countable.
      * 
-     * 
-     * @return bool
+     * @return bool Returns __true__ if it is, __false__ otherwise. 
      */
     public static function isCountable($variable) : bool
     {
@@ -744,10 +797,9 @@ class PhpHelper implements IPhpHelper
         return static::isArray($variable);
     }
     /**
-     * method
+     * Returns a NULL if that value is null or false - otherwise, the value.
      * 
-     * 
-     * @return mixed
+     * @param mixed $variable The variable to convert.
      */
     public static function toNull($variable, bool $orWhiteSpaceIfString = true, bool $orEmptyIfArray = true)
     {
@@ -756,6 +808,16 @@ class PhpHelper implements IPhpHelper
         }
         return null;
     }
+    /**
+     * Returns the first result of a single or multiple calls to filter_input() and validates input parameters.
+     * 
+     * @param string $variableName The 'key' to retrieve.
+     * @param array $inputs An array of input parameters to call filter_input() with - for valid inputs see: http://php.net/manual/en/function.filter-input.php
+     * @param array $filters The filter to apply to each iteration.
+     * @param array $options The options to apply to each iteration.
+     * 
+     * @return bool Returns __true__ if $variable is countable, __false__ otherwise.
+     */
     //TODO: Read https://stackoverflow.com/questions/25232975/php-filter-inputinput-server-request-method-returns-null and evaluate this method.
     /**
      * method
@@ -803,10 +865,13 @@ class PhpHelper implements IPhpHelper
         return null;
     }
     /**
-     * method
+     * Capture the output from the output buffer - basically another way of capturing output via ob_start() and ob_get_clean().
      * 
+     * @param callable $closure The callable to execute.
+     * @param ... $parameters The parameters to execute the callable with.
      * 
-     * @return ?string
+     * @return ?string The output captured from the executed callable.
+     * 
      */
     public static function obGet(callable $closure, ...$parameters) : ?string
     {
@@ -815,10 +880,12 @@ class PhpHelper implements IPhpHelper
         return static::toNull((string) ob_get_clean(), false, true);
     }
     /**
-     * method
+     * Check if a string ends with a substring.
      * 
+     * @param string $string The input string to check.
+     * @param string $subString The substring to check for.
      * 
-     * @return bool
+     * @return bool Returns __true__ if $string ends with $subString, __false__ if not.
      */
     public static function strEndsWith(string $string, string $subString) : bool
     {
@@ -831,10 +898,12 @@ class PhpHelper implements IPhpHelper
         return false;
     }
     /**
-     * method
+     * Check if a string starts with a substring.
      * 
+     * @param string $string The input string to check.
+     * @param string $subString The substring to check for.
      * 
-     * @return bool
+     * @return bool Returns __true__ if $string starts with $subString, __false__ if not.
      */
     public static function strStartsWith(string $string, string $subString) : bool
     {
@@ -847,10 +916,12 @@ class PhpHelper implements IPhpHelper
         return false;
     }
     /**
-     * method
+     * Count the number of elements in a Countable. This method does the same as count(), except that it returns __NULL__ if the $variable is not countable.
      * 
+     * @param mixed $variable The variable to count.
      * 
-     * @return ?int
+     * @return ?int Returns the count of the elements if $variable is countable, otherwise __NULL__.
+     *
      */
     public static function count($variable) : ?int
     {
@@ -860,10 +931,13 @@ class PhpHelper implements IPhpHelper
         return count($variable);
     }
     /**
-     * method
+     * Checks if a string contains a substring. If $position is specified, it will check for a substring at a specific position.
      * 
+     * @param string $string The string to check.
+     * @param string $subString The substring to check for.
+     * @param int $position The position in $string to check at.
      * 
-     * @return bool
+     * @return bool Returns __true__ if $string contains $subString (if $position is not specified), __true__ if $string contains $substring at the specified position (if $position is specified), or __false_ otherwise.
      */
     public static function strContains(string $string, string $subString, int $position = null) : bool
     {
@@ -879,9 +953,10 @@ class PhpHelper implements IPhpHelper
         return strpos($string, $subString) !== false;
     }
     /**
-     * method
+     * Returns the path of the calling method or function.
      * 
-     * @return string
+     * @return string The path to the calling PHP code file.
+     * 
      */
     public static function getCallingPath() : string
     {
@@ -892,9 +967,10 @@ class PhpHelper implements IPhpHelper
         return realpath($trace[count($trace) - 1]['file']);
     }
     /**
-     * method
+     * Returns the name of the class from where the current function/method was called.
      * 
-     * @return string
+     * @return string The name of the class from where the containing function/method was called.
+     * 
      */
     public static function getCallingClass() : string
     {
@@ -905,10 +981,13 @@ class PhpHelper implements IPhpHelper
         return $trace[count($trace) - 1]['class'];
     }
     /**
-     * method
+     * Replace multiple strings.
      * 
-     * 
-     * @return string
+     * @param array $strings The strings to look for (the needles).
+     * @param string $replacement The replacement string.
+     * @param string $subject The subject to modify (the haystack).
+     * @param bool $ignoreCase If __true__ case is ignored, if __false__ case is taken into consideration.
+     * @return string The modified subject.
      */
     public static function strReplaceAll(array $strings, string $replacement, string $subject, bool $ignoreCase = false, int &$count = null) : string
     {
@@ -927,10 +1006,11 @@ class PhpHelper implements IPhpHelper
         return $subject;
     }
     /**
-     * method
+     * Strip white-space from a string.
      * 
-     * 
-     * @return string
+     * @param string $subject The subject to modify.
+     * @param string $replaceWith The string to replace white-space instances with.
+     * @return string The resulting string.
      */
     public static function strStripWhiteSpace(string $subject, string $replaceWith = ' ') : string
     {
@@ -940,10 +1020,12 @@ class PhpHelper implements IPhpHelper
         return static::strReplaceAll(["\n", "\r", "\t", "  "], $replaceWith, $subject);
     }
     /**
-     * method
+     * Convert a string to dashed case.
      * 
+     * @param $subject The string to modify.
+     * @param $dash The string to use as the dash.
      * 
-     * @return string
+     * @return string The resulting string.
      */
     public static function strToDashedCase(string $subject, string $dash = '-') : string
     {
@@ -1017,8 +1099,10 @@ class PhpHelper implements IPhpHelper
         return $newObj;
     }
     /**
-     * method
      * 
+     * Clone an object optimistically - in other words, take what we can and skip what we can't.
+     * 
+     * @param object $something The object to clone.
      * 
      * @return ?object
      */
@@ -1027,9 +1111,10 @@ class PhpHelper implements IPhpHelper
         return static::_cloneObject($obj, 0, $excludeClosures, $levels);
     }
     /**
-     * method
      * 
+     * Serialize something (except closures).
      * 
+     * @param mixed $something The variable to serialize.
      * @return string
      */
     public static function serialize($something = null) : string
@@ -1071,10 +1156,13 @@ class PhpHelper implements IPhpHelper
         return @serialize($something);
     }
     /**
-     * method
      * 
+     * Unserialize something (except closures).
      * 
-     * @return mixed
+     * @param string $something The string to unserialize.
+     * @param bool $strict If set to __true__, the method will not treat a blank string as valid.
+     * 
+     * @return string
      */
     public static function unserialize(string $something, bool $strict = false)
     {
@@ -1087,6 +1175,9 @@ class PhpHelper implements IPhpHelper
         $tmp = @unserialize($something);
         if ($tmp === false) {
             $errorLast = error_get_last();
+            if ($errorLast === null) {
+                return null;
+            }
             if (PHP_MAJOR_VERSION >= 7) {
                 error_clear_last();
             }
@@ -1095,10 +1186,12 @@ class PhpHelper implements IPhpHelper
         return $tmp;
     }
     /**
-     * method
      * 
+     * Create a semi-constant value, based on the position from where it is called in the source code.
      * 
-     * @return string
+     * The value is 'semi'-constant, as it will always remain the same as long as the call isn't moved 
+     * textually (e.g. moved to a different column or row in the source).
+     * 
      */
     public static function getLineAnchor(int $backTraceDepth = 1) : string
     {
@@ -1106,9 +1199,12 @@ class PhpHelper implements IPhpHelper
         return md5($trace['file'] . $trace['line']);
     }
     /**
-     * method
      * 
+     * Base64 encode a string either with the native PHP base64_encode() function; or using an URL safe
+     * version (compatible with Python).
      * 
+     * @param string $string
+     * @param bool $urlSafe
      * @return string
      */
     public static function base64Encode(string $string, bool $urlSafe = false) : string
@@ -1120,9 +1216,12 @@ class PhpHelper implements IPhpHelper
         return $data;
     }
     /**
-     * method
      * 
+     * Base64 decode a string either with the native PHP base64_decode() function; or using an URL safe
+     * version (compatible with Python).
      * 
+     * @param string $string
+     * @param bool $urlSafe
      * @return string
      */
     public static function base64Decode(string $string, bool $urlSafe = false) : string
@@ -1138,9 +1237,10 @@ class PhpHelper implements IPhpHelper
         return base64_decode($data);
     }
     /**
-     * method
      * 
+     * Generates a string of random bytes (either using random_bytes() if available - otherwise using rand(0, 255) and chr().
      * 
+     * @param int $size
      * @return string
      */
     public static function randomBytes(int $length) : string
