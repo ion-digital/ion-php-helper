@@ -413,7 +413,7 @@ class PhpHelper implements PhpHelperInterface {
 
                 if($variable === '') {
                     
-                    return [];
+                    return [ $variable ];
                 }
                 
                 if (strpos($variable, $splitCharacterIfString, 0) !== false && $splitCharacterIfString !== null) {
@@ -463,6 +463,28 @@ class PhpHelper implements PhpHelperInterface {
             if($variable === null) {
 
                 return null;
+            }
+            
+            if(static::isString($variable)) {
+                                
+                $tmp = 0;
+                
+                foreach(preg_split('##u', $variable, -1, PREG_SPLIT_NO_EMPTY) as $char) {
+                    
+                    $tmp += $char === '0' ? 0 : 1;
+                }
+                
+                if(floatval($variable) === 0) {
+                    
+                    if($tmp > 0) {
+                        
+                        return 1;
+                    }
+                    
+                    return 0;
+                }
+                
+                return floatval($variable);
             }
             
             if (static::isArray($variable)) {

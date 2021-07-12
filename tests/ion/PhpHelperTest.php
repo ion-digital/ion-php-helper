@@ -675,6 +675,11 @@ class PhpHelperTest extends TestCase {
         
     }    
     
+    //NOTE: The rules (for all to* methods):
+    // 1) If NULL then NULL
+    // 2) If empt then empty result type
+    // 3) If not empty then not empty result type 
+    
     public function testToArray() {
         
         $this->assertEquals(null, PHP::toArray(null));
@@ -682,9 +687,9 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals([false], PHP::toArray(false));
         $this->assertEquals([0], PHP::toArray(0));
         $this->assertEquals([0.0], PHP::toArray(0.0));    
-        $this->assertEquals([], PHP::toArray(''));
-        $this->assertEquals([], PHP::toArray('', false, ','));
-        $this->assertEquals([], PHP::toArray('', true, ','));
+        $this->assertEquals([''], PHP::toArray(''));
+        $this->assertEquals([], PHP::toArray('', false, ',')); //NOTE: delimiter; which is why we return an empty array
+        $this->assertEquals([], PHP::toArray('', true, ',')); //NOTE: delimiter; which is why we return an empty array
         $this->assertEquals([1,2,3], PHP::toArray('1,2,3', false, ','));
         
         $this->assertEquals([1,2,3], PHP::toArray(serialize([1,2,3]), true));
@@ -699,7 +704,7 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals('', PHP::toString(''));
         $this->assertEquals('0', PHP::toString(0));
         $this->assertEquals('0', PHP::toString(0.0));        
-        $this->assertEquals(null, PHP::toString([]));        
+        $this->assertEquals('', PHP::toString([]));        
         $this->assertEquals('', PHP::toString([], false, ','));        
         $this->assertEquals('1,2,3', PHP::toString([1,2,3], false, ','));        
         
@@ -712,17 +717,17 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals(null, PHP::toFloat(null));
         $this->assertEquals(1.0, PHP::toFloat(true));
         $this->assertEquals(0.0, PHP::toFloat(false));
-        $this->assertEquals(null, PHP::toFloat(''));
-        $this->assertEquals(null, PHP::toFloat(0));
+        $this->assertEquals(0, PHP::toFloat(''));
+        $this->assertEquals(0, PHP::toFloat(0));
         $this->assertEquals(0.0, PHP::toFloat(0.0));        
-        $this->assertEquals(null, PHP::toFloat([]));    
+        $this->assertEquals(0, PHP::toFloat([]));    
         
         $this->assertEquals(0, PHP::toFloat('0'));
         $this->assertEquals(1, PHP::toFloat('1'));
         $this->assertEquals(2, PHP::toFloat('2'));
         $this->assertEquals(1.0, PHP::toFloat('1.0'));
         $this->assertEquals(1.1, PHP::toFloat('1.1'));
-        $this->assertEquals(null, PHP::toFloat('something'));      
+        $this->assertEquals(1, PHP::toFloat('something'));      
         
         $this->assertEquals(1.23, PHP::toFloat(serialize(1.23), true));
         $this->assertEquals(1.23, PHP::toFloat(json_encode(1.23), true));       
@@ -733,17 +738,17 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals(null, PHP::toInt(null));
         $this->assertEquals(1, PHP::toInt(true));
         $this->assertEquals(0, PHP::toInt(false));
-        $this->assertEquals(null, PHP::toInt(''));
+        $this->assertEquals(0, PHP::toInt(''));
         $this->assertEquals(0, PHP::toInt(0));
-        $this->assertEquals(null, PHP::toInt(0.0));        
-        $this->assertEquals(null, PHP::toInt([]));    
+        $this->assertEquals(0, PHP::toInt(0.0));        
+        $this->assertEquals(0, PHP::toInt([]));    
         
         $this->assertEquals(0, PHP::toInt('0'));
         $this->assertEquals(1, PHP::toInt('1'));
         $this->assertEquals(2, PHP::toInt('2'));
         $this->assertEquals(1, PHP::toInt('1.0'));
-        $this->assertEquals(null, PHP::toInt('1.1'));
-        $this->assertEquals(null, PHP::toInt('something'));
+        $this->assertEquals(1, PHP::toInt('1.1'));
+        $this->assertEquals(1, PHP::toInt('something'));
 
         $this->assertEquals(123, PHP::toInt(serialize(123), true));
         $this->assertEquals(123, PHP::toInt(json_encode(123), true));          
@@ -780,18 +785,18 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals(false, PHP::toBool(''));
         
         
-        $this->assertEquals(null, PHP::toBool([]));
-        $this->assertEquals(true, PHP::toBool([ false ]));
-        $this->assertEquals(true, PHP::toBool([ false, false ]));
-        $this->assertEquals(true, PHP::toBool([ false, false, true ]));
+        $this->assertEquals(false, PHP::toBool([]));
+        $this->assertEquals(false, PHP::toBool([ false ]));
+        $this->assertEquals(false, PHP::toBool([ false, false ]));
+        $this->assertEquals(false, PHP::toBool([ false, false, true ]));
         $this->assertEquals(true, PHP::toBool([ false, true, true ]));
         $this->assertEquals(true, PHP::toBool([ true ]));
         $this->assertEquals(true, PHP::toBool([ true, true ]));
         $this->assertEquals(true, PHP::toBool([ true, true, false ]));
-        $this->assertEquals(true, PHP::toBool([ true, false, false ]));        
+        $this->assertEquals(false, PHP::toBool([ true, false, false ]));        
 
         
-        $this->assertEquals(null, PHP::toBool([], false, true));
+        $this->assertEquals(false, PHP::toBool([], false, true));
         $this->assertEquals(false, PHP::toBool([ false ], false, true));
         $this->assertEquals(false, PHP::toBool([ false, false ], false, true));
         $this->assertEquals(false, PHP::toBool([ false, false, true ], false, true));
