@@ -683,7 +683,8 @@ class PhpHelperTest extends TestCase {
         $this->assertEquals([0], PHP::toArray(0));
         $this->assertEquals([0.0], PHP::toArray(0.0));    
         $this->assertEquals([], PHP::toArray(''));
-        $this->assertEquals([], PHP::toArray('', ','));
+        $this->assertEquals([], PHP::toArray('', false, ','));
+        $this->assertEquals([], PHP::toArray('', true, ','));
         $this->assertEquals([1,2,3], PHP::toArray('1,2,3', false, ','));
         
         $this->assertEquals([1,2,3], PHP::toArray(serialize([1,2,3]), true));

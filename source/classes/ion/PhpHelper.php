@@ -25,7 +25,7 @@ use \Countable;
 use \Serializable;
 use \Closure;
 
-class PhpHelper implements IPhpHelper {
+class PhpHelper implements PhpHelperInterface {
 
     public static function isAssociativeArray(array $array): bool {
         if (!is_array($array)) {
@@ -310,7 +310,14 @@ class PhpHelper implements IPhpHelper {
 
             try {
                 
-                return self::toScalar(self::unserialize($variable, true), $callBack, false);
+                $tmp = self::unserialize($variable, true);
+                
+                if($tmp === null) {
+                    
+                    return $callBack($variable);
+                }
+                
+                return self::toScalar($tmp, $callBack, false);
             
             } catch(PhpHelperException $exception) {
                 
@@ -1191,6 +1198,11 @@ class PhpHelper implements IPhpHelper {
         if($tmp === false) {
             
             $errorLast = error_get_last();
+            
+            if($errorLast === null) {
+                
+                return null;
+            }
             
             if(PHP_MAJOR_VERSION >= 7) {
                 

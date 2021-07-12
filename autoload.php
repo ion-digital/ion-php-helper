@@ -35,7 +35,7 @@ if (!class_exists('\\ion\\PhpHelper')) {
     if (class_exists('\\ion\\Package')) {
 
         \ion\Package::create(
-                'ion', 'php-helper', [ 'source/classes/' ],    
+                'ion', 'php-helper', [ 'source/classes/', 'source/interfaces', 'source/traits/' ],    
                 [                    
                     'builds/' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
                     'builds/' . PHP_MAJOR_VERSION
