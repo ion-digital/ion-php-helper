@@ -6,7 +6,7 @@ namespace ion;
 
 use Exception;
 use Throwable;
-interface PhpHelperExceptionInterface
+interface PhpHelperExceptionInterface extends IPhpHelperException
 {
     /**
      * method

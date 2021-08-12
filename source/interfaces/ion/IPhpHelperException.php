@@ -13,7 +13,7 @@ use Throwable;
  *
  */
 
-interface IPhpHelperException extends PhpHelperExceptionInterface {
+interface IPhpHelperException {
 
     // No method definitions! Please see: PhpHelperExceptionInterface.
 

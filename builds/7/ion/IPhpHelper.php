@@ -24,7 +24,7 @@ use Closure;
  *
  */
 
-interface IPhpHelper extends PhpHelperInterface {
+interface IPhpHelper {
 
     // No method definitions! Please see: PhpHelperInterface.
 

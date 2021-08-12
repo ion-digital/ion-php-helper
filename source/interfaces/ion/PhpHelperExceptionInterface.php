@@ -9,7 +9,7 @@ use Throwable;
 
 
 
-interface PhpHelperExceptionInterface {
+interface PhpHelperExceptionInterface extends IPhpHelperException {
 
 
     function __construct(string $message = "", int $code = 0, Throwable $previous = null);

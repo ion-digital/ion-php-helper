@@ -17,7 +17,7 @@ use Error;
 use Countable;
 use Serializable;
 use Closure;
-interface PhpHelperInterface
+interface PhpHelperInterface extends IPhpHelper
 {
     /**
      * Checks to see if an array is an associative array or not.

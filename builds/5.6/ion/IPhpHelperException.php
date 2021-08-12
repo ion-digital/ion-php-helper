@@ -11,6 +11,6 @@ use \Exception as Throwable;
  * This interface is an alias for PhpHelperExceptionInterface.
  *
  */
-interface IPhpHelperException extends PhpHelperExceptionInterface
+interface IPhpHelperException
 {
 }

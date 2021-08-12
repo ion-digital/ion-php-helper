@@ -22,6 +22,6 @@ use Closure;
  * This interface is an alias for PhpHelperInterface.
  *
  */
-interface IPhpHelper extends PhpHelperInterface
+interface IPhpHelper
 {
 }

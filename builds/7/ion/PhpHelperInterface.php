@@ -20,7 +20,7 @@ use Closure;
 
 
 
-interface PhpHelperInterface {
+interface PhpHelperInterface extends IPhpHelper {
 
 
     /**
