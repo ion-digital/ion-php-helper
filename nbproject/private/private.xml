@@ -9,6 +9,8 @@
         </group>
         <group name="PHP"/>
         <group name="REDi"/>
-        <group name="ION"/>
+        <group name="ION">
+            <file>file:/D:/prj/dev/ion/php/php-helper/composer.json</file>
+        </group>
     </open-files>
 </project-private>
