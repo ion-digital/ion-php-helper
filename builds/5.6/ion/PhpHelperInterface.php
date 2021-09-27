@@ -1,22 +1,7 @@
 <?php
-/*
- * See license information at the package root in LICENSE.md
- */
 namespace ion;
 
-use ion\Types\IStringObject;
-use ion\Types\IEnum;
-use ReflectionObject;
-use ReflectionProperty;
-use ReflectionMethod;
-use ion\Types\Arrays\IMap;
-use ion\Types\Arrays\Map;
-use Exception;
-use \Exception as Throwable;
-use Error;
-use Countable;
-use Serializable;
-use Closure;
+use ion\IPhpHelper;
 interface PhpHelperInterface extends IPhpHelper
 {
     /**
@@ -300,7 +285,7 @@ interface PhpHelperInterface extends IPhpHelper
      * 
      * @return mixed
      */
-    static function filterInput($variableName, array $inputs = [], $filter = null, array $options = []);
+    static function filterInput($variableName, array $inputs = [[]], $filter = null, array $options = [[]]);
     /**
      * Capture the output from the output buffer - basically another way of capturing output via ob_start() and ob_get_clean().
      *
