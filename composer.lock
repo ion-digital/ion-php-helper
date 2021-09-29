@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8aba25da269d72e69482acd270b8755",
+    "content-hash": "d12cff37beff94113d8c4d1808ef6e44",
     "packages": [
         {
             "name": "ion/autoloader",
-            "version": "v0.6.7+release/main",
+            "version": "v0.7.2+release/main",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/ion-digital-projects/autoloader.git",
-                "reference": "46f20a5de64811990b42662c38a12018f4c06132"
+                "reference": "841c671120cb8271b4e9a72a221ad5f9cc6af8b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/ion-digital-projects/autoloader/get/46f20a5de64811990b42662c38a12018f4c06132.zip",
-                "reference": "46f20a5de64811990b42662c38a12018f4c06132",
+                "url": "https://bitbucket.org/ion-digital-projects/autoloader/get/841c671120cb8271b4e9a72a221ad5f9cc6af8b4.zip",
+                "reference": "841c671120cb8271b4e9a72a221ad5f9cc6af8b4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6"
             },
             "require-dev": {
-                "ion/dev": "^0.6",
+                "ion/dev": "^0.7",
                 "php": "^7.2"
             },
             "type": "library",
@@ -56,9 +56,9 @@
             ],
             "support": {
                 "issues": "https://bitbucket.org/ion-digital-projects/autoloader/issues",
-                "source": "https://bitbucket.org/ion-digital-projects/autoloader/src/46f20a5de64811990b42662c38a12018f4c06132/?at=v0.6.7+release/main"
+                "source": "https://bitbucket.org/ion-digital-projects/autoloader/src/841c671120cb8271b4e9a72a221ad5f9cc6af8b4/?at=v0.7.2+release/main"
             },
-            "time": "2021-09-27T12:06:02+00:00"
+            "time": "2021-09-29T20:36:14+00:00"
         }
     ],
     "packages-dev": [
@@ -133,16 +133,16 @@
         },
         {
             "name": "ion/dev",
-            "version": "v0.6.24+release/main",
+            "version": "v0.7.4+release/main",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/ion-digital-projects/dev.git",
-                "reference": "b98cb38ad4ba2d833ae1189fcdbb7f3819b0a8ac"
+                "reference": "3fa0e8789cbc81649b557a962595e4f5c27eef71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/ion-digital-projects/dev/get/b98cb38ad4ba2d833ae1189fcdbb7f3819b0a8ac.zip",
-                "reference": "b98cb38ad4ba2d833ae1189fcdbb7f3819b0a8ac",
+                "url": "https://bitbucket.org/ion-digital-projects/dev/get/3fa0e8789cbc81649b557a962595e4f5c27eef71.zip",
+                "reference": "3fa0e8789cbc81649b557a962595e4f5c27eef71",
                 "shasum": ""
             },
             "require": {
@@ -164,7 +164,9 @@
             "autoload": {
                 "psr-4": {
                     "ion\\": [
-                        "source/classes/ion/"
+                        "source/classes/ion/",
+                        "source/interfaces/ion/",
+                        "source/traits/ion/"
                     ]
                 }
             },
@@ -194,9 +196,9 @@
             ],
             "support": {
                 "issues": "https://bitbucket.org/ion-digital-projects/dev/issues",
-                "source": "https://bitbucket.org/ion-digital-projects/dev/src/b98cb38ad4ba2d833ae1189fcdbb7f3819b0a8ac/?at=v0.6.24+release/main"
+                "source": "https://bitbucket.org/ion-digital-projects/dev/src/3fa0e8789cbc81649b557a962595e4f5c27eef71/?at=v0.7.4+release/main"
             },
-            "time": "2021-09-27T11:59:26+00:00"
+            "time": "2021-09-29T20:27:17+00:00"
         },
         {
             "name": "ion/php-trans-porter",
@@ -738,12 +740,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "adf7a90588e84bb76d2093df95bcc0212bebc761"
+                "reference": "0f36fa483bc30d0032f700a38b40141cfa383910"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/adf7a90588e84bb76d2093df95bcc0212bebc761",
-                "reference": "adf7a90588e84bb76d2093df95bcc0212bebc761",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/0f36fa483bc30d0032f700a38b40141cfa383910",
+                "reference": "0f36fa483bc30d0032f700a38b40141cfa383910",
                 "shasum": ""
             },
             "require": {
@@ -788,7 +790,7 @@
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
                 "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
             },
-            "time": "2021-09-23T18:17:06+00:00"
+            "time": "2021-09-27T19:30:08+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -2507,7 +2509,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/4.4"
+                "source": "https://github.com/symfony/debug/tree/v4.4.31"
             },
             "funding": [
                 {
@@ -2982,12 +2984,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "982b4a1044ec54a2ad55c8001bf66dbdb3e3c4c1"
+                "reference": "76e5ba5e89f7951e12ef5220999f51268ad8af58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/982b4a1044ec54a2ad55c8001bf66dbdb3e3c4c1",
-                "reference": "982b4a1044ec54a2ad55c8001bf66dbdb3e3c4c1",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/76e5ba5e89f7951e12ef5220999f51268ad8af58",
+                "reference": "76e5ba5e89f7951e12ef5220999f51268ad8af58",
                 "shasum": ""
             },
             "require": {
@@ -3037,7 +3039,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-25T15:53:43+00:00"
+            "time": "2021-09-26T08:44:01+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -3342,12 +3344,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "2d582ef28f88ce1d0337173e4d59c9a4d33a2649"
+                "reference": "801b925e308518ddf821ba91952c41ae77c77507"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/2d582ef28f88ce1d0337173e4d59c9a4d33a2649",
-                "reference": "2d582ef28f88ce1d0337173e4d59c9a4d33a2649",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/801b925e308518ddf821ba91952c41ae77c77507",
+                "reference": "801b925e308518ddf821ba91952c41ae77c77507",
                 "shasum": ""
             },
             "require": {
@@ -3438,7 +3440,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-09T15:14:23+00:00"
+            "time": "2021-09-28T10:23:32+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

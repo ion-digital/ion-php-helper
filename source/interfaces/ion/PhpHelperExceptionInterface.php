@@ -2,7 +2,7 @@
 
 namespace ion;
 
-interface IPhpHelper {
+interface PhpHelperExceptionInterface {
 
     // No public methods!
 
