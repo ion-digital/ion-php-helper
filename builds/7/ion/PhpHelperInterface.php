@@ -2,9 +2,7 @@
 
 namespace ion;
 
-use \ion\IPhpHelper;
-
-interface PhpHelperInterface extends IPhpHelper {
+interface PhpHelperInterface {
 
     /**
      * Checks to see if an array is an associative array or not.

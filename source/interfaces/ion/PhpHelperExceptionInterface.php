@@ -2,9 +2,7 @@
 
 namespace ion;
 
-use \ion\IPhpHelperException;
-
-interface PhpHelperExceptionInterface extends IPhpHelperException {
+interface PhpHelperExceptionInterface {
 
     // No public methods!
 
