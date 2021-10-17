@@ -266,9 +266,9 @@ interface PhpHelperInterface {
     static function filterInput(
 
         string $variableName,
-        array $inputs = [[  ]],
+        array $inputs = [],
         int $filter = null,
-        array $options = [[  ]]
+        array $options = []
 
     );
 

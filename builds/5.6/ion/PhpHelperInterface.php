@@ -284,7 +284,7 @@ interface PhpHelperInterface
      * 
      * @return mixed
      */
-    static function filterInput($variableName, array $inputs = [[]], $filter = null, array $options = [[]]);
+    static function filterInput($variableName, array $inputs = [], $filter = null, array $options = []);
     /**
      * Capture the output from the output buffer - basically another way of capturing output via ob_start() and ob_get_clean().
      *
