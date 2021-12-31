@@ -9,8 +9,6 @@ namespace ion;
  *
  * @author Justus
  */
-use ion\Types\IStringObject;
-use ion\Types\IEnum;
 use ReflectionObject;
 use ReflectionProperty;
 use ReflectionMethod;
@@ -734,7 +732,7 @@ class PhpHelper implements PhpHelperInterface
             }
         }
         if (!static::isInt($filter)) {
-            throw new PhpHelperException("Each input must be of type 'int.'");
+            throw new PhpHelperException("The filter must be of type 'int.'");
         }
         if ($options !== [] && !static::isAssociativeArray($options)) {
             throw new PhpHelperException("Options must be an associative array.");
