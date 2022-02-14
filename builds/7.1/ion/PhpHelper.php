@@ -720,7 +720,7 @@ class PhpHelper implements PhpHelperInterface
                 $host = array_key_exists('HTTP_HOST', $_SERVER) ? (string) $_SERVER['HTTP_HOST'] : null;
             }
         }
-        return (!self::isEmpty($protocol) ? "{$protocol}://" : "") . (!self::isEmpty($host) ? $host : "") . $path;
+        return (!self::isEmpty($protocol) && !self::isEmpty($host) ? "{$protocol}://" : "") . (!self::isEmpty($host) ? $host : "") . $path;
     }
     /**
      * 
