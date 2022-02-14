@@ -867,7 +867,7 @@ class PhpHelper implements PhpHelperInterface {
 
         return 
         
-            (!self::isEmpty($protocol) ? "{$protocol}://" : "") . 
+            (!self::isEmpty($protocol) && !self::isEmpty($host) ? "{$protocol}://" : "") . 
             (!self::isEmpty($host) ? $host : "") .
             $path;
     }
