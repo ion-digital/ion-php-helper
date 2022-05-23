@@ -770,7 +770,7 @@ class PhpHelper implements PhpHelperInterface
             call_user_func_array($closure, $parameters);
             return static::toNull((string) ob_get_clean(), false, true);
         } catch (Throwable $th) {
-            ob_end_flush();
+            ob_end_clean();
             throw $th;
         }
     }
