@@ -1077,9 +1077,18 @@ class PhpHelper implements PhpHelperInterface {
 
     public static function obGet(callable $closure, ...$parameters): ?string {
 
-        ob_start();
-        call_user_func_array($closure, $parameters);
-        return static::toNull((string) ob_get_clean(), false, true);
+        try {
+            
+            ob_start();
+            call_user_func_array($closure, $parameters);
+            
+            return static::toNull((string) ob_get_clean(), false, true);
+        }
+        catch(Throwable $th) {
+        
+            ob_end_flush();
+            throw $th;
+        }
     }
     
    /**
