@@ -1086,7 +1086,7 @@ class PhpHelper implements PhpHelperInterface {
         }
         catch(Throwable $th) {
         
-            ob_end_flush();
+            ob_end_clean();
             throw $th;
         }
     }
