@@ -5,7 +5,7 @@
  */
 
 
-namespace ion;
+namespace Ion;
 
 use \Exception;
 use \Throwable;

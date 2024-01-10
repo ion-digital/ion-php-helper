@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion;
+namespace Ion;
 
 /**
  * Description of PhpHelper
@@ -14,8 +14,6 @@ namespace ion;
 use \ReflectionObject;
 use \ReflectionProperty;
 use \ReflectionMethod;
-use \ion\Types\Arrays\IMap;
-use \ion\Types\Arrays\Map;
 use \Exception;
 use \Throwable;
 use \Error;

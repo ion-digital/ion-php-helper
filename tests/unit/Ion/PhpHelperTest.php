@@ -5,7 +5,7 @@
  */
 
 
-namespace ion;
+namespace Ion;
 
 /**
  * Description of PhpHelperTest
@@ -14,8 +14,8 @@ namespace ion;
  */
 
 use PHPUnit\Framework\TestCase;
-use \ion\PhpHelper as PHP;
-use \ion\SystemType;
+use \Ion\PhpHelper as PHP;
+use \Ion\SystemType;
 use \Countable;
 use \Exception;
 use \Throwable;
