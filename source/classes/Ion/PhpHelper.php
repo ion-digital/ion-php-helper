@@ -1197,7 +1197,7 @@ class PhpHelper implements PhpHelperInterface {
 
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
 
-        if (static::count($trace) === 0 || (static::count($trace) > 0 && !array_key_exists('file', $trace[count($trace) - 1]))) {
+        if (static::count($trace) === 0 || (static::count($trace) > 0 && !array_key_exists('file', $trace[static::count($trace) - 1]))) {
 
             throw new PhpHelperException("Could not determine the calling method / function's file path (i.e. the code file that contains it).");
         }

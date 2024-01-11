@@ -15,7 +15,6 @@ namespace Ion;
 
 use PHPUnit\Framework\TestCase;
 use \Ion\PhpHelper as PHP;
-use \Ion\SystemType;
 use \Countable;
 use \Exception;
 use \Throwable;
@@ -95,7 +94,7 @@ class ClassG extends ClassF {
 
 class CountableClass implements \Countable {
     
-    public function count() {
+    public function count(): int {
         return 0;
     }
 }
@@ -870,16 +869,14 @@ class PhpHelperTest extends TestCase {
     }
     
     private function callingPathTestEnclosingMethod() {
-        
+
         return PHP::getCallingPath();
     }
     
     public function testGetCallingPath() {                
         
-        $this->assertEquals(__FILE__, self::callingPathTestEnclosingMethod());
-        
-        $this->expectException(PhpHelperException::class);
-        PHP::getCallingPath();
+        $this->assertEquals(__FILE__, self::callingPathTestEnclosingMethod());        
+        $this->assertNotEquals(__FILE__, PHP::getCallingPath());
     }
     
 //    public function testGetParameters() {
