@@ -4,6 +4,11 @@
  * See license information at the package root in LICENSE.md
  */
 
+$autoloader = __DIR__ . DIRECTORY_SEPARATOR . "vendor/autoload.php";
+
+if(file_exists($autoloader))
+    require_once $autoloader;
+
 \Ion\Package::create("ion", "php-helper", function($package) {
 
     return \Ion\Autoloading\Autoloader::create(
