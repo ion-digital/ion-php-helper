@@ -4,25 +4,23 @@
  * See license information at the package root in LICENSE.md
  */
 
- $composer = __DIR__ . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+if(class_exists("\\Ion\\Package")) {
 
- if(file_exists($composer))
-     require_once $composer;
+    \Ion\Package::create("ion", "php-helper", function($package) {
 
-\Ion\Package::create("ion", "php-helper", function($package) {
-
-    return \Ion\Autoloading\Autoloader::create(
+        return \Ion\Autoloading\Autoloader::create(
+            
+            $package, 
+            [ 
+                "source/classes",
+                "source/interfaces",
+                "source/traits"
+            ], 
+            [
+                "builds/" . PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION,
+                "builds/" . PHP_MAJOR_VERSION,
+            ]
+        );
         
-        $package, 
-        [ 
-            "source/classes",
-            "source/interfaces",
-            "source/traits"
-        ], 
-        [
-            "builds/" . PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION,
-            "builds/" . PHP_MAJOR_VERSION,
-        ]
-    );
-    
-}, __FILE__);
+    }, __FILE__);
+}
