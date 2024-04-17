@@ -8,35 +8,76 @@
         "PHP Helper",
         "php-helper"
     ],
-    "homepage": "https://bitbucket.org/ion-digital-projects/php-helper",
-    "license": "LGPL-3.0-or-later",
+    "homepage": "https://github.com/ion-digital/ion-php-helper",
+    "license": "LGPL-3.0",
     "authors": [
         {
             "name": "Justus Meyer",
             "role": "developer",
-            "homepage": "https://justusmeyer.com",
-            "email": "justus@justusmeyer.com"
+            "homepage": "https://ion.digital"
         }
     ],
-    "support": {
-        "issues": "https://bitbucket.org/justusmeyer/php-helper/issues"
-    },
     "require": {
-        "php": ">=5.6",
-        "ion/autoloader": "^0.7"
+        "php": ">=7.4",
+        "ion/packaging": "^1.0.0",
+        "ion/autoloader": "^1.0.0"
     },
     "require-dev": {
-        "ion/dev": "^0.7"
-    }, 
-    "minimum-stability": "dev",
+        "ion/packaging-dev": "dev-main"
+    },
+    
+    "prefer-stable": true,
+    "minimum-stability": "dev", 
+    
     "autoload": {
         "files": [
-            "autoload.php"
+            "index.php"
         ]
     },    
     "autoload-dev": {
         "psr-4": {
-            "ion\\": "tests/ion/"
+            "Ion\\": "tests/unit/Ion/"
         }
-    }
+    },
+    "scripts": {
+        "make": [
+
+            "./vendor/bin/phing -f ./build.xml"
+        ],
+        "tests": [
+
+            "./vendor/bin/phpunit ./tests/unit"
+        ]
+    },    
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ion-digital/ion-php-autoloader/"
+        },         
+        {
+            "type": "vcs",
+            "url": "https://github.com/ion-digital/ion-php-packaging/"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ion-digital/ion-php-packaging-dev.git"
+        },  
+        {
+            "type": "vcs",
+            "url": "https://github.com/ion-digital/ion-php-dev.git"
+        },
+        {
+            "type": "composer",
+            "url": "https://composer.packages.ion.digital"
+        }
+    ],
+    "config": {
+        
+        "process-timeout": 900,
+
+        "allow-plugins": {
+            "ion/dev": true,
+            "ion/packaging-dev": true
+        }
+    }   
 }
